@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/tonet-me/tonet-core/entity"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
 )
@@ -19,7 +20,16 @@ func main() {
 	//if err != nil {
 	//	fmt.Println("err", err)
 	//}
-	s, err := userDB.DeActiveUser(context.TODO(), "65c728c64bb1081b4046d682")
+	//s, err := userDB.DeActiveUser(context.TODO(), "65c728c64bb1081b4046d682")
+	s, err := userDB.UpdateUser(context.TODO(), "65c728c64bb1081b4046d681", entity.User{
+		//ID:              "",
+		FirstName:       "q1q",
+		LastName:        "qqq",
+		Email:           "q@gmail.com",
+		PhoneNumber:     "0912",
+		ProfilePhotoURL: "qq",
+		Status:          2,
+	})
 	fmt.Println(s, err)
 	//user, err := userDB.CreateNewUser(context.TODO(), entity.User{
 	//	LastName:    "k",

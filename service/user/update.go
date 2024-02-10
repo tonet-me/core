@@ -20,7 +20,7 @@ func (s Service) Update(ctx context.Context, req userparam.UpdateRequest) (*user
 		ProfilePhotoURL: req.UpdateData.ProfilePhotoURL,
 		Status:          user.Status,
 	}
-	updatedUser, uErr := s.repo.UpdateUser(ctx, userDataUpdate)
+	updatedUser, uErr := s.repo.UpdateUser(ctx, req.AuthenticatedUserID, userDataUpdate)
 	if uErr != nil {
 		return nil, uErr
 	}

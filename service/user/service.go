@@ -11,7 +11,7 @@ type Repository interface {
 	DeActiveUser(ctx context.Context, userID string) (bool, error)
 	ActiveUser(ctx context.Context, userID string) (bool, error)
 	GetUserByID(ctx context.Context, userID string) (entity.User, error)
-	UpdateUser(ctx context.Context, user entity.User) (entity.User, error)
+	UpdateUser(ctx context.Context, userID string, user entity.User) (bool, error)
 }
 
 type AuthGenerator interface {

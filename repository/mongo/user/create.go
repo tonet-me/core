@@ -13,7 +13,7 @@ func (d DB) CreateNewUser(ctx context.Context, user entity.User) (entity.User, e
 		fmt.Println("err", err)
 		return entity.User{}, err
 	}
-	fmt.Println("id", insertResult.InsertedID)
+
 	userObjectID, ok := insertResult.InsertedID.(primitive.ObjectID)
 	if !ok {
 		return entity.User{}, fmt.Errorf("couldn't convert objectID to string")
