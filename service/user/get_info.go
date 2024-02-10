@@ -1,9 +1,12 @@
 package userservice
 
-import userparam "tonet-core/param/user"
+import (
+	"context"
+	userparam "github.com/tonet-me/tonet-core/param/user"
+)
 
-func (s Service) GetInfo(req userparam.GetInfoRequest) (*userparam.GetInfoResponse, error) {
-	user, gErr := s.repo.GetUserByID(req.AuthenticatedUserID)
+func (s Service) GetInfo(ctx context.Context, req userparam.GetInfoRequest) (*userparam.GetInfoResponse, error) {
+	user, gErr := s.repo.GetUserByID(ctx, req.AuthenticatedUserID)
 	if gErr != nil {
 		return nil, gErr
 	}

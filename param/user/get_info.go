@@ -1,6 +1,6 @@
 package userparam
 
-import "tonet-core/entity"
+import "github.com/tonet-me/tonet-core/entity"
 
 type GetInfoRequest struct {
 	AuthenticatedUserID string

@@ -1,18 +1,19 @@
 package userservice
 
 import (
-	"tonet-core/entity"
-	"tonet-core/param/user"
+	"context"
+	"github.com/tonet-me/tonet-core/entity"
+	userparam "github.com/tonet-me/tonet-core/param/user"
 )
 
-func (s Service) LoginOrRegister(req userparam.LoginOrRegisterRequest) (*userparam.LoginOrRegisterResponse, error) {
+func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegisterRequest) (*userparam.LoginOrRegisterResponse, error) {
 
 	userInfoFromToken, vErr := s.oAuthSvc.ValidationAndGetInfoFromToken(req.Token)
 	if vErr != nil {
 		return nil, vErr
 	}
 
-	isExisted, takenUser, gErr := s.repo.IsUserExistByEmail(userInfoFromToken.Email)
+	isExisted, takenUser, gErr := s.repo.IsUserExistByEmail(ctx, userInfoFromToken.Email)
 	if gErr != nil {
 		return nil, gErr
 	}
@@ -20,11 +21,12 @@ func (s Service) LoginOrRegister(req userparam.LoginOrRegisterRequest) (*userpar
 	if isExisted {
 		user = takenUser
 	} else {
-		newUser, cErr := s.repo.CreateNewUser(entity.User{
+		newUser, cErr := s.repo.CreateNewUser(ctx, entity.User{
 			FirstName:       userInfoFromToken.FirstName,
 			LastName:        userInfoFromToken.LastName,
 			Email:           userInfoFromToken.Email,
 			ProfilePhotoURL: userInfoFromToken.ProfilePhotoURL,
+			Status:          entity.UserStatusActive,
 		})
 		if cErr != nil {
 			return nil, cErr

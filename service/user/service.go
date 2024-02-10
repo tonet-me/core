@@ -1,16 +1,17 @@
 package userservice
 
 import (
-	"tonet-core/entity"
+	"context"
+	"github.com/tonet-me/tonet-core/entity"
 )
 
 type Repository interface {
-	IsUserExistByEmail(email string) (bool, entity.User, error)
-	CreateNewUser(user entity.User) (entity.User, error)
-	DeActiveUser(userID string) (bool, error)
-	ActiveUser(userID string) (bool, error)
-	GetUserByID(userID string) (entity.User, error)
-	UpdateUser(user entity.User) (entity.User, error)
+	IsUserExistByEmail(ctx context.Context, email string) (bool, entity.User, error)
+	CreateNewUser(ctx context.Context, user entity.User) (entity.User, error)
+	DeActiveUser(ctx context.Context, userID string) (bool, error)
+	ActiveUser(ctx context.Context, userID string) (bool, error)
+	GetUserByID(ctx context.Context, userID string) (entity.User, error)
+	UpdateUser(ctx context.Context, user entity.User) (entity.User, error)
 }
 
 type AuthGenerator interface {

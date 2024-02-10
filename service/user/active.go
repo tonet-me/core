@@ -1,9 +1,12 @@
 package userservice
 
-import userparam "tonet-core/param/user"
+import (
+	"context"
+	userparam "github.com/tonet-me/tonet-core/param/user"
+)
 
-func (s Service) Active(req userparam.ActiveRequest) (*userparam.ActiveResponse, error) {
-	success, dErr := s.repo.ActiveUser(req.AuthenticatedUserID)
+func (s Service) Active(ctx context.Context, req userparam.ActiveRequest) (*userparam.ActiveResponse, error) {
+	success, dErr := s.repo.ActiveUser(ctx, req.AuthenticatedUserID)
 	if dErr != nil {
 		return nil, dErr
 	}

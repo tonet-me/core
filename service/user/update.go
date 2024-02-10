@@ -1,12 +1,13 @@
 package userservice
 
 import (
-	"tonet-core/entity"
-	userparam "tonet-core/param/user"
+	"context"
+	"github.com/tonet-me/tonet-core/entity"
+	userparam "github.com/tonet-me/tonet-core/param/user"
 )
 
-func (s Service) Update(req userparam.UpdateRequest) (*userparam.UpdateResponse, error) {
-	user, gErr := s.repo.GetUserByID(req.AuthenticatedUserID)
+func (s Service) Update(ctx context.Context, req userparam.UpdateRequest) (*userparam.UpdateResponse, error) {
+	user, gErr := s.repo.GetUserByID(ctx, req.AuthenticatedUserID)
 	if gErr != nil {
 		return nil, gErr
 	}
@@ -19,7 +20,7 @@ func (s Service) Update(req userparam.UpdateRequest) (*userparam.UpdateResponse,
 		ProfilePhotoURL: req.UpdateData.ProfilePhotoURL,
 		Status:          user.Status,
 	}
-	updatedUser, uErr := s.repo.UpdateUser(userDataUpdate)
+	updatedUser, uErr := s.repo.UpdateUser(ctx, userDataUpdate)
 	if uErr != nil {
 		return nil, uErr
 	}
