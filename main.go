@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/tonet-me/tonet-core/config"
 	"github.com/tonet-me/tonet-core/entity"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
 )
@@ -28,7 +30,7 @@ func main() {
 	//	fmt.Println("err", err)
 	//}
 	//s, err := userDB.DeActiveUser(context.TODO(), "65c728c64bb1081b4046d682")
-	s, err := userDB.UpdateUser(context.TODO(), "65c728c64bb1081b4046d681", entity.User{
+	s, err := userDB.UpdateUser(context.TODO(), "65c728c64bb1081b4046d68x", entity.User{
 		//ID:              "",
 		FirstName:       "q1q",
 		LastName:        "qqq",
@@ -37,6 +39,13 @@ func main() {
 		ProfilePhotoURL: "qq",
 		Status:          2,
 	})
+	richErr := new(richerror.RichError)
+	if errors.As(err, &richErr) {
+		fmt.Println("rich ", richErr.Message())
+		fmt.Println("kind ", richErr.Kind())
+	} else {
+		fmt.Println("no rich", err)
+	}
 	fmt.Println(s, err)
 	//user, err := userDB.CreateNewUser(context.TODO(), entity.User{
 	//	LastName:    "k",
