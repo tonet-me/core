@@ -1,0 +1,6 @@
+mongo:
+  port: 3306
+  host: localhost
+  db_name: niki_db
+  username: niki
+  password: nikiappt0lk2o20

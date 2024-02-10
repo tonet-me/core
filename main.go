@@ -3,14 +3,21 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/tonet-me/tonet-core/config"
 	"github.com/tonet-me/tonet-core/entity"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
 )
 
 func main() {
-	cfg := mongodb.Config{URI: "mongodb://root:rootpassword@localhost:27017/"}
-	db := mongodb.New(cfg)
+	cfx := config.C()
+	clientCfg := mongodb.Config{
+		Host:     cfx.MongoClient.Host,
+		Port:     cfx.MongoClient.Port,
+		Username: cfx.MongoClient.Username,
+		Password: cfx.MongoClient.Password,
+	}
+	db := mongodb.New(clientCfg)
 	userDB := usermongo.New(usermongo.Config{
 		DBName:   "test",
 		CollName: "user",

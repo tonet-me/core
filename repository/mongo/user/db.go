@@ -9,8 +9,8 @@ import (
 )
 
 type Config struct {
-	DBName   string
-	CollName string
+	DBName   string `koanf:"db_name"`
+	CollName string `koanf:"coll_name"`
 }
 
 type DB struct {

@@ -2,20 +2,25 @@ package mongodb
 
 import (
 	"context"
+	"fmt"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Config struct {
-	URI string
+	Host     string `koanf:"host"`
+	Port     int    `koanf:"port"`
+	Username string `koanf:"username"`
+	Password string `koanf:"password"`
 }
+
 type DB struct {
-	config Config
 	client *mongo.Client
 }
 
 func New(cfg Config) *DB {
-	client, cErr := mongo.Connect(context.TODO(), options.Client().ApplyURI(cfg.URI))
+	URI := fmt.Sprintf(`mongodb://%s:%s@%s:%d/`, cfg.Username, cfg.Password, cfg.Host, cfg.Port)
+	client, cErr := mongo.Connect(context.TODO(), options.Client().ApplyURI(URI))
 	if cErr != nil {
 		panic(cErr)
 	}
@@ -27,7 +32,6 @@ func New(cfg Config) *DB {
 	}
 
 	return &DB{
-		config: cfg,
 		client: client,
 	}
 }
