@@ -1,7 +1,5 @@
 package userparam
 
-import "github.com/tonet-me/tonet-core/entity"
-
 type UserUpdateData struct {
 	FirstName       string
 	LastName        string
@@ -14,5 +12,5 @@ type UpdateRequest struct {
 }
 
 type UpdateResponse struct {
-	User entity.User
+	Updated bool
 }

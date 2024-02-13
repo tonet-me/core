@@ -1,8 +1,11 @@
 package richerror
 
-type Kind string
+type Kind int
 
 const (
-	ErrKindNotFound    Kind = "notfound"
-	ErrKindInvalidKind      = "invalid"
+	ErrKindNotFound Kind = iota + 1
+	ErrKindInvalid
+	ErrKindForbidden
+	ErrKindNotExpected
+	ErrKindBadRequest
 )

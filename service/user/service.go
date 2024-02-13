@@ -28,3 +28,11 @@ type Service struct {
 	authGenerator AuthGenerator
 	oAuthSvc      OAuthService
 }
+
+func New(repo Repository, authGenerator AuthGenerator, oAuthService OAuthService) Service {
+	return Service{
+		repo:          repo,
+		authGenerator: authGenerator,
+		oAuthSvc:      oAuthService,
+	}
+}

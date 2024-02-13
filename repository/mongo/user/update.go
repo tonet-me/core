@@ -18,7 +18,7 @@ func (d DB) UpdateUser(ctx context.Context, userID string, user entity.User) (bo
 	if oErr != nil {
 		return false, richerror.New(richerror.WithOp(op),
 			richerror.WithMessage(fmt.Sprintf("userID %s is not a valid ObjectID", userID)),
-			richerror.WithKind(richerror.ErrKindInvalidKind),
+			richerror.WithKind(richerror.ErrKindInvalid),
 			richerror.WithInnerError(oErr))
 
 	}

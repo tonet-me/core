@@ -19,15 +19,15 @@ const (
 )
 
 func (u UserStatus) IsValid() bool {
-	return u >= UserStatusActive && int(u) <= len(UserTypeStrings)
+	return u >= UserStatusActive && int(u) <= len(UserStatusStrings)
 }
 
-var UserTypeStrings = map[UserStatus]string{
+var UserStatusStrings = map[UserStatus]string{
 	UserStatusActive:   "active",
 	UserStatusDeActive: "deActive",
 	UserStatusSuspend:  "suspend",
 }
 
 func (u UserStatus) String() string {
-	return UserTypeStrings[u]
+	return UserStatusStrings[u]
 }

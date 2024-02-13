@@ -38,7 +38,10 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 		Keys:    bson.D{{"phone_number", 1}},
 		Options: options.Index().SetUnique(true),
 	}
-	_, iErr := userCollection.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{indexModelEmail, indexModelPhoneNumber})
+	indexModelEmailAndStatus := mongo.IndexModel{
+		Keys: bson.D{{"email", 1}, {"status", 1}},
+	}
+	_, iErr := userCollection.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{indexModelEmail, indexModelPhoneNumber, indexModelEmailAndStatus})
 	if iErr != nil {
 		panic(iErr)
 	}

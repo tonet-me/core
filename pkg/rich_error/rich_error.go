@@ -53,7 +53,7 @@ func (r *RichError) Message() string {
 }
 
 func (r *RichError) Kind() Kind {
-	if r.kind != "" {
+	if r.kind != 0 {
 		return r.kind
 	}
 
@@ -62,5 +62,5 @@ func (r *RichError) Kind() Kind {
 		return richErr.Kind()
 	}
 
-	return "kind of error isn't set"
+	return 0
 }
