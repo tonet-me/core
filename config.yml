@@ -1,6 +1,22 @@
-mongo:
-  port: 3306
+http_server:
   host: localhost
-  db_name: niki_db
-  username: niki
-  password: nikiappt0lk2o20
+  port: 3000
+  graceful_shutdown: 5s
+
+mongo_client:
+  port: 27017
+  host: localhost
+  username: root
+  password: rootpassword
+
+user_mongo:
+  db_name: tonet
+  coll_name: users
+
+auth:
+  sign_key: mytonetsecretkey
+  access_expiration_time: 24h
+  RefreshExpirationTime: 48h
+  access_subject: acctoken
+  refresh_subject: rftoken
+

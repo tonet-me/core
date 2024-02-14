@@ -12,9 +12,9 @@ import (
 )
 
 type Config struct {
-	Host             string
-	Port             int
-	gracefulShutdown time.Duration
+	Host             string        `koanf:"host"`
+	Port             int           `koanf:"port"`
+	gracefulShutdown time.Duration `koanf:"graceful_shutdown"`
 }
 type Server struct {
 	addr             string
@@ -28,11 +28,13 @@ func New(cfg Config, echo *echo.Echo, handlers ...Handler) *Server {
 		addr:             fmt.Sprintf("%s:%v", cfg.Host, cfg.Port),
 		echo:             echo,
 		gracefulShutdown: cfg.gracefulShutdown,
+		handlers:         handlers,
 	}
 }
 
 func (s *Server) StartListening() {
 	for _, handler := range s.handlers {
+		fmt.Println("h", handler)
 		handler.SetRoutes(s.echo)
 	}
 
