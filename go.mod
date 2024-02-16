@@ -3,18 +3,17 @@ module github.com/tonet-me/tonet-core
 go 1.21.6
 
 require (
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/knadh/koanf v1.5.0
+	github.com/labstack/echo/v4 v4.11.4
 	go.mongodb.org/mongo-driver v1.13.1
 )
 
 require (
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
-	github.com/labstack/echo v3.3.10+incompatible // indirect
-	github.com/labstack/echo/v4 v4.11.4 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

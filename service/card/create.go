@@ -3,6 +3,7 @@ package cardservice
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 )
@@ -27,7 +28,7 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 	if existed {
 		return nil, errors.New(`the card name is available`)
 	}
-
+	fmt.Println("new card", newCard)
 	createdCard, cErr := s.repo.CreateNewCard(ctx, newCard)
 	if cErr != nil {
 		return nil, cErr

@@ -9,6 +9,8 @@ import (
 
 func (d DB) CreateNewCard(ctx context.Context, card entity.Card) (entity.Card, error) {
 	insertResult, err := d.collection.InsertOne(ctx, card)
+	fmt.Println("insert res", insertResult.InsertedID)
+	fmt.Println("card db", card)
 	if err != nil {
 		fmt.Println("err", err)
 		return entity.Card{}, err

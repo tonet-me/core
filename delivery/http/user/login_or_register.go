@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (h Handler) LoginOriRegister(ctx echo.Context) error {
+func (h Handler) loginOriRegister(ctx echo.Context) error {
 
 	//panic("implement")
 	return ctx.JSON(http.StatusOK, map[string]interface{}{"msg": "ok"})

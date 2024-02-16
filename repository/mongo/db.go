@@ -20,6 +20,10 @@ type DB struct {
 
 func New(cfg Config) *DB {
 	URI := fmt.Sprintf(`mongodb://%s:%s@%s:%d/`, cfg.Username, cfg.Password, cfg.Host, cfg.Port)
+	//bsonOpts := &options.BSONOptions {
+	//	UseJSONStructTags: true,
+	//	NilSliceAsEmpty: true,
+	//}
 	client, cErr := mongo.Connect(context.TODO(), options.Client().ApplyURI(URI))
 	if cErr != nil {
 		panic(cErr)

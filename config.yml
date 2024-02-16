@@ -13,6 +13,10 @@ user_mongo:
   db_name: tonet
   coll_name: users
 
+card_mongo:
+  db_name: tonet
+  coll_name: cards
+
 auth:
   sign_key: mytonetsecretkey
   access_expiration_time: 24h
