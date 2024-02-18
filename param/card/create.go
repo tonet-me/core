@@ -13,10 +13,10 @@ type CreateNewResponse struct {
 
 type CardCreateData struct {
 	Name         string               `json:"name"`
-	Title        string               `json:"title"`
+	Title        string               `bson:"title"`
 	Photo        string               `json:"photo"`
 	PhoneNumbers []entity.PhoneNumber `json:"phone_numbers"`
-	Emails       []entity.Email       `bson:"emails"`
+	Emails       []entity.Email       `json:"emails"`
 	SocialMedias []entity.SocialMedia `json:"social_medias"`
 	Links        []entity.Link        `json:"links"`
 	Status       entity.CardStatus    `json:"status"`

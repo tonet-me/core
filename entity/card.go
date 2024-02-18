@@ -2,11 +2,11 @@ package entity
 
 type Card struct {
 	ID           string
-	UserID       string        `json:"user_id"`
-	Name         string        `json:"name"`
+	UserID       string        `bson:"user_id"`
+	Name         string        `bson:"name2"`
 	Title        string        `bson:"title"`
 	Photo        string        `bson:"photo"`
-	PhoneNumbers []PhoneNumber `json:"phone_numbers"`
+	PhoneNumbers []PhoneNumber `bson:"phone_numbers"`
 	Emails       []Email       `bson:"emails"`
 	SocialMedias []SocialMedia `bson:"social_medias"`
 	Links        []Link        `bson:"links"`
@@ -14,8 +14,8 @@ type Card struct {
 }
 
 type PhoneNumber struct {
-	Title string `json:"title"`
-	Value string `json:"value"`
+	Title string `bson:"title2"`
+	Value string `bson:"value"`
 }
 
 type Email struct {
