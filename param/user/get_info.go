@@ -7,5 +7,5 @@ type GetInfoRequest struct {
 }
 
 type GetInfoResponse struct {
-	User entity.User
+	User entity.User `json:"user"`
 }

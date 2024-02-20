@@ -6,6 +6,6 @@ type LoginOrRegisterRequest struct {
 	Token string
 }
 type LoginOrRegisterResponse struct {
-	User   entity.User
-	Tokens Tokens
+	User   entity.User `json:"user"`
+	Tokens Tokens      `json:"tokens"`
 }

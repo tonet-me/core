@@ -4,5 +4,5 @@ type DeActiveRequest struct {
 	AuthenticatedUserID string
 }
 type DeActiveResponse struct {
-	Success bool
+	Success bool `json:"success"`
 }

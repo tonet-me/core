@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/tonet-me/tonet-core/adapter/minio"
 	httpserver "github.com/tonet-me/tonet-core/delivery/http"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	cardmongo "github.com/tonet-me/tonet-core/repository/mongo/card"
@@ -14,4 +15,5 @@ type Config struct {
 	UserMongo   usermongo.Config  `koanf:"user_mongo"`
 	CardMongo   cardmongo.Config  `koanf:"card_mongo"`
 	Auth        auth.Config       `koanf:"auth"`
+	Minio       minio.Config      `koanf:"minio"`
 }

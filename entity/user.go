@@ -1,13 +1,14 @@
 package entity
 
 type User struct {
-	ID              string
-	FirstName       string     `bson:"first_name,omitempty"`
-	LastName        string     `bson:"last_name,omitempty"`
-	Email           string     `bson:"email"`
-	PhoneNumber     string     `bson:"phone_number"`
-	ProfilePhotoURL string     `bson:"profile_photo_url,omitempty"`
-	Status          UserStatus `bson:"status"`
+	ID              string     `json:"id"`
+	FirstName       string     `bson:"first_name,omitempty" json:"first_name"`
+	LastName        string     `bson:"last_name,omitempty" json:"last_mame"`
+	Email           string     `bson:"email" json:"email"`
+	EmailVerified   bool       `bson:"email_verified" json:"email_verified"`
+	PhoneNumber     string     `bson:"phone_number" json:"phone_number"`
+	ProfilePhotoURL string     `bson:"profile_photo_url,omitempty" json:"profile_photo_url"`
+	Status          UserStatus `bson:"status" json:"status"`
 }
 
 type UserStatus int

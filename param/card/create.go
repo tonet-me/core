@@ -8,12 +8,12 @@ type CreateNewRequest struct {
 }
 
 type CreateNewResponse struct {
-	Card entity.Card
+	Card entity.Card `json:"card"`
 }
 
 type CardCreateData struct {
 	Name         string               `json:"name"`
-	Title        string               `bson:"title"`
+	Title        string               `json:"title"`
 	Photo        string               `json:"photo"`
 	PhoneNumbers []entity.PhoneNumber `json:"phone_numbers"`
 	Emails       []entity.Email       `json:"emails"`

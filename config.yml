@@ -24,3 +24,9 @@ auth:
   access_subject: acctoken
   refresh_subject: rftoken
 
+minio:
+  endpoint: localhost:9000
+  access_key_id: XrUDxIjBjGLq27swqIKN
+  secret_access_key: 49N7PdgbVPGCnXpjHPnaHAllXche01WjzsxMSUYr
+  use_ssl: false
+  user_bucket_name: user-profile

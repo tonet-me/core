@@ -1,7 +1,7 @@
 # Use root/example as user/password credentials
 version: '3.7'
 services:
-  mongodb-tonet:
+  mongodb:
     image: mongo:7.0
     restart: always
     container_name: mongodb-tonet
@@ -12,6 +12,17 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_tonet:/data/db
+
+
+  minio:
+    image: 'bitnami/minio:2024.2.17'
+    container_name: minio-tonet
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ROOT_USER=minio-root-user
+      - MINIO_ROOT_PASSWORD=minio-root-password
 
 volumes:
   mongodb_data_tonet:

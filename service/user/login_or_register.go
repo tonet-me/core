@@ -27,6 +27,7 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 			Email:           userInfoFromToken.Email,
 			ProfilePhotoURL: userInfoFromToken.ProfilePhotoURL,
 			Status:          entity.UserStatusActive,
+			EmailVerified:   true,
 		})
 		if cErr != nil {
 			return nil, cErr

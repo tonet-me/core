@@ -4,5 +4,5 @@ type ActiveRequest struct {
 	AuthenticatedUserID string
 }
 type ActiveResponse struct {
-	Success bool
+	Success bool `json:"success"`
 }

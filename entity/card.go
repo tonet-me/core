@@ -1,31 +1,31 @@
 package entity
 
 type Card struct {
-	ID           string
-	UserID       string        `bson:"user_id"`
-	Name         string        `bson:"name2"`
-	Title        string        `bson:"title"`
-	Photo        string        `bson:"photo"`
-	PhoneNumbers []PhoneNumber `bson:"phone_numbers"`
-	Emails       []Email       `bson:"emails"`
-	SocialMedias []SocialMedia `bson:"social_medias"`
-	Links        []Link        `bson:"links"`
-	Status       CardStatus    `bson:"status"`
+	ID           string        `json:"id"`
+	UserID       string        `bson:"user_id" json:"user_id"`
+	Name         string        `bson:"name2" json:"name"`
+	Title        string        `bson:"title" json:"title"`
+	Photo        string        `bson:"photo" json:"photo"`
+	PhoneNumbers []PhoneNumber `bson:"phone_numbers" json:"phoneNumbers"`
+	Emails       []Email       `bson:"emails" json:"emails"`
+	SocialMedias []SocialMedia `bson:"social_medias" json:"socialMedias"`
+	Links        []Link        `bson:"links" json:"links"`
+	Status       CardStatus    `bson:"status" json:"status"`
 }
 
 type PhoneNumber struct {
-	Title string `bson:"title2"`
-	Value string `bson:"value"`
+	Title string `bson:"title2" json:"title"`
+	Value string `bson:"value" json:"value"`
 }
 
 type Email struct {
-	Title string `bson:"title"`
-	Value string `bson:"value"`
+	Title string `bson:"title" json:"title"`
+	Value string `bson:"value" json:"value"`
 }
 
 type Link struct {
-	Title string `bson:"title"`
-	Value string `bson:"value"`
+	Title string `bson:"title" json:"title"`
+	Value string `bson:"value" json:"value"`
 }
 
 type CardStatus int
