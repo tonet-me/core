@@ -6,6 +6,6 @@ const (
 	ErrKindNotFound Kind = iota + 1
 	ErrKindInvalid
 	ErrKindForbidden
-	ErrKindNotExpected
+	ErrKindUnExpected
 	ErrKindBadRequest
 )

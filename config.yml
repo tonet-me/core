@@ -3,6 +3,11 @@ http_server:
   port: 3000
   graceful_shutdown: 5s
 
+o_auth:
+  google:
+    client_id:
+    client_secret:
+
 mongo_client:
   port: 27017
   host: localhost
@@ -30,3 +35,4 @@ minio:
   secret_access_key: 49N7PdgbVPGCnXpjHPnaHAllXche01WjzsxMSUYr
   use_ssl: false
   user_bucket_name: user-profile
+

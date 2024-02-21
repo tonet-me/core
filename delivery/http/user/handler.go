@@ -1,9 +1,14 @@
 package userhandler
 
-import userservice "github.com/tonet-me/tonet-core/service/user"
+import (
+	"github.com/tonet-me/tonet-core/service/auth"
+	userservice "github.com/tonet-me/tonet-core/service/user"
+)
 
 type Handler struct {
-	userSvc userservice.Service
+	userSvc    userservice.Service
+	authSvc    auth.Service
+	authConfig auth.Config
 }
 
 func New(userSvc userservice.Service) Handler {

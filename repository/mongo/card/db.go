@@ -2,6 +2,8 @@ package cardmongo
 
 import (
 	"context"
+	"fmt"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -24,9 +26,11 @@ func New(cfg Config, client *mongodb.DB) *DB {
 }
 
 func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
+	const op = richerror.OP("cardmongo.initialCollection")
+
 	err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
 	}
 
 	cardCollection := client.GetClient().Database(cfg.DBName).Collection(cfg.CollName)
@@ -50,7 +54,7 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 	_, iErr := cardCollection.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{indexModelUserID, indexModelName, indexModelNameAndStatus,
 		indexModelUserIDAndID, indexModelUserIDAndName})
 	if iErr != nil {
-		panic(iErr)
+		panic(fmt.Errorf("op:%v,\nwith err:%v", op, iErr))
 	}
 
 	return cardCollection

@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/tonet-me/tonet-core/adapter/minio"
+	"github.com/tonet-me/tonet-core/adapter/oauth"
 	"github.com/tonet-me/tonet-core/config"
 	httpserver "github.com/tonet-me/tonet-core/delivery/http"
 	cardhandler "github.com/tonet-me/tonet-core/delivery/http/card"
@@ -33,8 +34,9 @@ func StartServe(cfg config.Config) {
 func createUserHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {
 	userDB := usermongo.New(cfg.UserMongo, client)
 	authGenerator := auth.New(cfg.Auth)
-	oauth := new(userservice.OAuthService)
-	userSvc := userservice.New(userDB, authGenerator, *oauth)
+	googleOauth := oauth.NewGoogle(cfg.OAuth.Google)
+	oAuthAdapter := oauth.New(googleOauth)
+	userSvc := userservice.New(userDB, authGenerator, oAuthAdapter)
 	return userhandler.New(userSvc)
 }
 

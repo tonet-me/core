@@ -2,11 +2,24 @@ package userhandler
 
 import (
 	"github.com/labstack/echo/v4"
+	userparam "github.com/tonet-me/tonet-core/param/user"
+	httpmsg "github.com/tonet-me/tonet-core/pkg/http_msg"
 	"net/http"
 )
 
 func (h Handler) loginOriRegister(ctx echo.Context) error {
 
-	//panic("implement")
-	return ctx.JSON(http.StatusOK, map[string]interface{}{"msg": "ok"})
+	req := userparam.LoginOrRegisterRequest{}
+	if bErr := ctx.Bind(&req); bErr != nil {
+		return echo.NewHTTPError(http.StatusBadRequest)
+	}
+
+	res, sErr := h.userSvc.LoginOrRegister(ctx.Request().Context(), req)
+	if sErr != nil {
+		msg, code := httpmsg.Error(sErr)
+
+		return echo.NewHTTPError(code, msg)
+	}
+
+	return ctx.JSON(http.StatusOK, res)
 }

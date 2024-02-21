@@ -2,21 +2,26 @@ package usermongo
 
 import (
 	"context"
-	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (d DB) CreateNewUser(ctx context.Context, user entity.User) (entity.User, error) {
+	const op = richerror.OP("usermongo.CreateNewUser")
+
 	insertResult, err := d.collection.InsertOne(ctx, user)
 	if err != nil {
-		fmt.Println("err", err)
-		return entity.User{}, err
+		return entity.User{}, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+			richerror.WithInnerError(err))
 	}
 
 	userObjectID, ok := insertResult.InsertedID.(primitive.ObjectID)
 	if !ok {
-		return entity.User{}, fmt.Errorf("couldn't convert objectID to string")
+		return entity.User{}, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+		)
 	}
 	user.ID = userObjectID.String()
 

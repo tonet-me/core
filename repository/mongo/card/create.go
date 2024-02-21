@@ -2,23 +2,26 @@ package cardmongo
 
 import (
 	"context"
-	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (d DB) CreateNewCard(ctx context.Context, card entity.Card) (entity.Card, error) {
+	const op = richerror.OP("cardmongo.CreateNewCard")
+
 	insertResult, err := d.collection.InsertOne(ctx, card)
-	fmt.Println("insert res", insertResult.InsertedID)
-	fmt.Println("card db", card)
 	if err != nil {
-		fmt.Println("err", err)
-		return entity.Card{}, err
+		return entity.Card{}, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+			richerror.WithInnerError(err))
 	}
 
 	cardObjectID, ok := insertResult.InsertedID.(primitive.ObjectID)
 	if !ok {
-		return entity.Card{}, fmt.Errorf("couldn't convert objectID to string")
+		return entity.Card{}, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+		)
 	}
 	card.ID = cardObjectID.String()
 

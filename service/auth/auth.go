@@ -3,6 +3,8 @@ package auth
 import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/tonet-me/tonet-core/entity"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"strings"
 	"time"
 )
@@ -34,25 +36,33 @@ func (s Service) CreateRefreshToken(user entity.Authenticable) (string, error) {
 }
 
 func (s Service) ParseToken(bearerToken string) (*Claims, error) {
-	// https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-ParseWithClaims-CustomClaimsType
+	const op = richerror.OP("auth.ParseToken")
 
+	// https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-ParseWithClaims-CustomClaimsType
 	tokenStr := strings.Replace(bearerToken, "Bearer ", "", 1)
 
 	token, err := jwt.ParseWithClaims(tokenStr, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(s.config.SignKey), nil
 	})
 	if err != nil {
-		return nil, err
+		return nil, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+			richerror.WithInnerError(err))
 	}
 
 	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
 		return claims, nil
 	}
 
-	return nil, err
+	return nil, richerror.New(richerror.WithOp(op),
+		richerror.WithKind(richerror.ErrKindForbidden),
+		richerror.WithMessage(errmsg.ErrorMsgUserNotAllowed),
+	)
 }
 
 func (s Service) createToken(userID string, subject string, expireDuration time.Duration) (string, error) {
+	const op = richerror.OP("auth.createToken")
+
 	// create a signer for rsa 256
 	// TODO - replace with rsa 256 RS256 - https://github.com/golang-jwt/jwt/blob/main/http_example_test.go
 
@@ -69,7 +79,9 @@ func (s Service) createToken(userID string, subject string, expireDuration time.
 	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := accessToken.SignedString([]byte(s.config.SignKey))
 	if err != nil {
-		return "", err
+		return "", richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+			richerror.WithInnerError(err))
 	}
 
 	return tokenString, nil

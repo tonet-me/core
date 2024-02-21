@@ -2,7 +2,6 @@ package minio
 
 import (
 	"context"
-	"fmt"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"log"
@@ -22,7 +21,6 @@ type Adapter struct {
 
 func New(cfg Config) *Adapter {
 	// Initialize minio client object.
-	fmt.Println("cfg", cfg)
 	minioClient, err := minio.New(cfg.Endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(cfg.AccessKeyID, cfg.SecretAccessKey, ""),
 		Secure: cfg.UseSSL,

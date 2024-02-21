@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -27,14 +28,23 @@ func (d DB) UpdateUser(ctx context.Context, userID string, user entity.User) (bo
 	updatedResult, err := d.collection.UpdateByID(ctx, id, update)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments
-			return false, fmt.Errorf("not found user")
+			return false, richerror.New(richerror.WithOp(op),
+				richerror.WithKind(richerror.ErrKindNotFound),
+				richerror.WithMessage(errmsg.ErrorMsgNotFound),
+				richerror.WithInnerError(err))
 
 		}
 
-		return false, err
+		return false, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindUnExpected),
+			richerror.WithInnerError(err))
 	}
+
 	if updatedResult.MatchedCount == 0 {
-		return false, fmt.Errorf("not found user")
+		return false, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindNotFound),
+			richerror.WithMessage(errmsg.ErrorMsgNotFound),
+		)
 	}
 
 	return true, nil

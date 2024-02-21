@@ -34,7 +34,6 @@ func New(cfg Config, echo *echo.Echo, handlers ...Handler) *Server {
 
 func (s *Server) StartListening() {
 	for _, handler := range s.handlers {
-		fmt.Println("h", handler)
 		handler.SetRoutes(s.echo)
 	}
 

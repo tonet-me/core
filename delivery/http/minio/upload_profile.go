@@ -6,14 +6,6 @@ import (
 )
 
 func (h Handler) uploadUserProfile(ctx echo.Context) error {
-
-	//createCardParam := cardparam.CreateNewRequest{}
-	//bErr := ctx.Bind(&createCardParam)
-	//fmt.Println("req body", createCardParam)
-	//if bErr != nil {
-	//	return ctx.JSON(http.StatusBadRequest, "invalid json format")
-	//}
-
 	fileFromClient, fErr := ctx.FormFile("profile-photo")
 	if fErr != nil {
 		return ctx.JSON(http.StatusBadRequest, "invalid file parameter")

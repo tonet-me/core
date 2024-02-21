@@ -6,14 +6,6 @@ import (
 )
 
 func (h Handler) downloadUserProfile(ctx echo.Context) error {
-
-	//createCardParam := cardparam.CreateNewRequest{}
-	//bErr := ctx.Bind(&createCardParam)
-	//fmt.Println("req body", createCardParam)
-	//if bErr != nil {
-	//	return ctx.JSON(http.StatusBadRequest, "invalid json format")
-	//}
-
 	fileNameFromClient := ctx.Param("id")
 
 	res, cErr := h.client.DownloadUserProfilePhoto(ctx.Request().Context(), fileNameFromClient)

@@ -20,7 +20,7 @@ type AuthGenerator interface {
 }
 
 type OAuthService interface {
-	ValidationAndGetInfoFromToken(token string) (entity.OAuthUserInfo, error)
+	ValidationAndGetInfoFromToken(ctx context.Context, oAuthType entity.OAuthType, token string) (*entity.OAuthUserInfo, error)
 }
 
 type Service struct {
