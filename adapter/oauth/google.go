@@ -41,7 +41,7 @@ func NewGoogle(cfg GoogleConfig) Google {
 func (g Google) ValidationToken(ctx context.Context, token string) (*entity.OAuthUserInfo, error) {
 	const op = richerror.OP("oauth.google.ValidationAndGetInfoFromToken")
 
-	payload, vErr := idtoken.Validate(context.Background(), token, "")
+	payload, vErr := idtoken.Validate(ctx, token, "")
 	if vErr != nil {
 		return nil, richerror.New(
 			richerror.WithOp(op),
