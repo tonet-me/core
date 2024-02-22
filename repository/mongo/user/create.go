@@ -2,6 +2,7 @@ package usermongo
 
 import (
 	"context"
+	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -18,6 +19,7 @@ func (d DB) CreateNewUser(ctx context.Context, user entity.User) (entity.User, e
 	}
 
 	userObjectID, ok := insertResult.InsertedID.(primitive.ObjectID)
+	fmt.Println("created id", userObjectID)
 	if !ok {
 		return entity.User{}, richerror.New(richerror.WithOp(op),
 			richerror.WithKind(richerror.ErrKindUnExpected),

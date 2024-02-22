@@ -37,7 +37,7 @@ func createUserHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler
 	googleOauth := oauth.NewGoogle(cfg.OAuth.Google)
 	oAuthAdapter := oauth.New(googleOauth)
 	userSvc := userservice.New(userDB, authGenerator, oAuthAdapter)
-	return userhandler.New(userSvc)
+	return userhandler.New(userSvc, authGenerator, cfg.Auth)
 }
 
 func createCardHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {

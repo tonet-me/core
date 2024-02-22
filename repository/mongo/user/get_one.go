@@ -24,7 +24,7 @@ func (d DB) GetUserByID(ctx context.Context, userID string) (entity.User, error)
 			richerror.WithInnerError(oErr))
 	}
 
-	filter := bson.D{{"id", id}}
+	filter := bson.D{{"_id", id}}
 	err := d.collection.FindOne(ctx, filter).Decode(&user)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments

@@ -2,6 +2,7 @@ package userservice
 
 import (
 	"context"
+	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
@@ -42,6 +43,7 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 		isNewUser = true
 	}
 
+	fmt.Println("user id service", user.ID)
 	authenticate := entity.Authenticable{
 		ID: user.ID,
 	}

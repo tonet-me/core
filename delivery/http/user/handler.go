@@ -11,6 +11,10 @@ type Handler struct {
 	authConfig auth.Config
 }
 
-func New(userSvc userservice.Service) Handler {
-	return Handler{userSvc: userSvc}
+func New(userSvc userservice.Service, authSvc auth.Service, authCfg auth.Config) Handler {
+	return Handler{
+		userSvc:    userSvc,
+		authSvc:    authSvc,
+		authConfig: authCfg,
+	}
 }
