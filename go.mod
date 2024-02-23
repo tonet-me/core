@@ -3,6 +3,7 @@ module github.com/tonet-me/tonet-core
 go 1.21.6
 
 require (
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/knadh/koanf v0.14.1
 	github.com/labstack/echo-jwt/v4 v4.2.0

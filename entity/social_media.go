@@ -1,8 +1,8 @@
 package entity
 
 type SocialMedia struct {
-	Type  SocialMediasType `bson:"type"`
-	Value string           `bson:"value"`
+	Type  SocialMediasType `bson:"type" json:"type"`
+	Value string           `bson:"value" json:"value"`
 }
 
 type SocialMediasType int

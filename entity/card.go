@@ -1,9 +1,9 @@
 package entity
 
 type Card struct {
-	ID           string        `json:"id"`
+	ID           string        `bson:"_id,omitempty" json:"id"`
 	UserID       string        `bson:"user_id" json:"user_id"`
-	Name         string        `bson:"name2" json:"name"`
+	Name         string        `bson:"name" json:"name"`
 	Title        string        `bson:"title" json:"title"`
 	Photo        string        `bson:"photo" json:"photo"`
 	PhoneNumbers []PhoneNumber `bson:"phone_numbers" json:"phoneNumbers"`
@@ -14,7 +14,7 @@ type Card struct {
 }
 
 type PhoneNumber struct {
-	Title string `bson:"title2" json:"title"`
+	Title string `bson:"title" json:"title"`
 	Value string `bson:"value" json:"value"`
 }
 

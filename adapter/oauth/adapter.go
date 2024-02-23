@@ -2,8 +2,8 @@ package oauth
 
 import (
 	"context"
-	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 )
 
@@ -26,8 +26,8 @@ func (a Adapter) ValidationAndGetInfoFromToken(ctx context.Context, oAuthType en
 	default:
 		return nil, richerror.New(
 			richerror.WithOp(op),
-			richerror.WithKind(richerror.ErrKindForbidden),
-			richerror.WithMessage(fmt.Sprint("the oauth type is invalid")),
+			richerror.WithKind(richerror.ErrKindBadRequest),
+			richerror.WithMessage(errmsg.ErrorMsgTypeOfOAuthInvalid),
 		)
 	}
 }

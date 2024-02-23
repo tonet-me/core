@@ -2,7 +2,7 @@
 version: '3.7'
 services:
   mongodb:
-    image: mongo:7.0
+    image: mongo:4.4.6
     restart: always
     container_name: mongodb-tonet
     environment:
@@ -23,6 +23,9 @@ services:
     environment:
       - MINIO_ROOT_USER=minio-root-user
       - MINIO_ROOT_PASSWORD=minio-root-password
+    volumes:
+      - minio_data_tonet:/data/minio
 
 volumes:
   mongodb_data_tonet:
+  minio_data_tonet:

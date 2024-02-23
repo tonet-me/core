@@ -10,4 +10,7 @@ const (
 	ErrorMsgPhoneNumberIsNotValid  = "phone number is not valid"
 	ErrorMsgUserNotAllowed         = "user not allowed"
 	ErrorMsgUserNotFound           = "user not found"
+
+	ErrorMsgNeedToken          = "token not found"
+	ErrorMsgTypeOfOAuthInvalid = "the oAuth provider type invalid"
 )
