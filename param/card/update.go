@@ -3,7 +3,7 @@ package cardparam
 import "github.com/tonet-me/tonet-core/entity"
 
 type UpdateRequest struct {
-	AuthenticatedUserID string         `json:"authenticated_user_id"`
+	AuthenticatedUserID string
 	CardID              string         `json:"card_id"`
 	UpdateData          CardUpdateData `json:"create_data"`
 }
