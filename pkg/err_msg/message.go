@@ -13,4 +13,6 @@ const (
 
 	ErrorMsgNeedToken          = "token not found"
 	ErrorMsgTypeOfOAuthInvalid = "the oAuth provider type invalid"
+
+	ErrorMsgInvalidJson = "invalid json format"
 )

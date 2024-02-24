@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	"github.com/tonet-me/tonet-core/pkg/claim"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	httpmsg "github.com/tonet-me/tonet-core/pkg/http_msg"
 	"net/http"
 )
@@ -11,7 +12,7 @@ import (
 func (h Handler) getUserInfo(ctx echo.Context) error {
 	req := userparam.GetInfoRequest{}
 	if bErr := ctx.Bind(&req); bErr != nil {
-		return echo.NewHTTPError(http.StatusBadRequest)
+		return echo.NewHTTPError(http.StatusBadRequest, errmsg.ErrorMsgInvalidJson)
 	}
 
 	claims := claim.GetClaimsFromEchoContext(ctx)

@@ -33,7 +33,7 @@ services:
 
 
   minio:
-    image: 'bitnami/minio:2024.2.17'
+    image: 'quay.io/minio/minio:RELEASE.2024-02-17T01-15-57Z'
     container_name: minio-tonet
     ports:
       - '9000:9000'
@@ -42,13 +42,21 @@ services:
       - MINIO_ROOT_USER=minio-root-user
       - MINIO_ROOT_PASSWORD=minio-root-password
     volumes:
-      - minio_data_tonet:/data/minio
+      - data1-1:/data1
+      - data1-2:/data2
+    healthcheck:
+      test: [ "CMD", "mc", "ready", "local" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - core
+    command: server --console-address ":9001" http://minio/data{1...2}
 
 volumes:
   mongodb_data_tonet:
-  minio_data_tonet:
+  data1-1:
+  data1-2:
 
 networks:
   core:
