@@ -15,6 +15,7 @@ import (
 	"github.com/tonet-me/tonet-core/service/auth"
 	cardservice "github.com/tonet-me/tonet-core/service/card"
 	userservice "github.com/tonet-me/tonet-core/service/user"
+	uservalidator "github.com/tonet-me/tonet-core/validator/user"
 )
 
 type Serve struct {
@@ -23,31 +24,36 @@ type Serve struct {
 
 func StartServe(cfg config.Config) {
 	mongoClient := mongodb.New(cfg.MongoClient)
-	minioHandler := createMinioHandler(cfg)
-	userHandler := createUserHandler(cfg, mongoClient)
+	authGenerator := auth.New(cfg.Auth)
+
+	minioHandler := createMinioHandler(cfg, authGenerator)
+	userHandler := createUserHandler(cfg, mongoClient, authGenerator)
 	cardHandler := createCardHandler(cfg, mongoClient)
+
 	e := echo.New()
 	server := httpserver.New(cfg.HttpServer, e, userHandler, cardHandler, minioHandler)
 	server.StartListening()
 }
 
-func createUserHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {
+func createUserHandler(cfg config.Config, client *mongodb.DB, authGenerator auth.Service) httpserver.Handler {
 	userDB := usermongo.New(cfg.UserMongo, client)
-	authGenerator := auth.New(cfg.Auth)
 	googleOauth := oauth.NewGoogle(cfg.OAuth.Google)
 	oAuthAdapter := oauth.New(googleOauth)
+	userValidator := uservalidator.New()
 	userSvc := userservice.New(userDB, authGenerator, oAuthAdapter)
-	return userhandler.New(userSvc, authGenerator, cfg.Auth)
+
+	return userhandler.New(userSvc, userValidator, authGenerator, cfg.Auth)
 }
 
 func createCardHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {
 	cardDB := cardmongo.New(cfg.CardMongo, client)
 	cardSvc := cardservice.New(cardDB)
+
 	return cardhandler.New(cardSvc)
 }
 
-func createMinioHandler(cfg config.Config) httpserver.Handler {
+func createMinioHandler(cfg config.Config, authGenerator auth.Service) httpserver.Handler {
 	minioClient := minio.New(cfg.Minio)
 
-	return miniohandler.New(minioClient)
+	return miniohandler.New(minioClient, authGenerator, cfg.Auth)
 }

@@ -10,4 +10,6 @@ func (h Handler) SetRoutes(e *echo.Echo) {
 
 	r.POST("/login-or-register", h.loginOriRegister)
 	r.GET("/profile", h.getUserInfo, middleware.Authentication(h.authSvc, h.authConfig))
+	r.PUT("/profile", h.updateUser, middleware.Authentication(h.authSvc, h.authConfig))
+
 }

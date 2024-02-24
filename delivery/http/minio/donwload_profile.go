@@ -10,7 +10,7 @@ func (h Handler) downloadUserProfile(ctx echo.Context) error {
 
 	res, cErr := h.client.DownloadUserProfilePhoto(ctx.Request().Context(), fileNameFromClient)
 	if cErr != nil {
-		return ctx.JSON(http.StatusForbidden, cErr.Error())
+		return echo.NewHTTPError(http.StatusForbidden, cErr.Error())
 	}
 
 	return ctx.Stream(http.StatusOK, "image/jpeg", res)

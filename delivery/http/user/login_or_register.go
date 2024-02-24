@@ -14,6 +14,15 @@ func (h Handler) loginOriRegister(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest)
 	}
 
+	if fieldErrors, err := h.userVld.LoginRegisterRequest(req); err != nil {
+		msg, code := httpmsg.Error(err)
+
+		return ctx.JSON(code, echo.Map{
+			"message": msg,
+			"errors":  fieldErrors,
+		})
+	}
+
 	res, sErr := h.userSvc.LoginOrRegister(ctx.Request().Context(), req)
 	if sErr != nil {
 		msg, code := httpmsg.Error(sErr)

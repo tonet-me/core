@@ -3,14 +3,14 @@ package entity
 type Card struct {
 	ID           string        `bson:"_id,omitempty" json:"id"`
 	UserID       string        `bson:"user_id" json:"user_id"`
-	Name         string        `bson:"name" json:"name"`
-	Title        string        `bson:"title" json:"title"`
-	Photo        string        `bson:"photo" json:"photo"`
-	PhoneNumbers []PhoneNumber `bson:"phone_numbers" json:"phoneNumbers"`
-	Emails       []Email       `bson:"emails" json:"emails"`
-	SocialMedias []SocialMedia `bson:"social_medias" json:"socialMedias"`
-	Links        []Link        `bson:"links" json:"links"`
-	Status       CardStatus    `bson:"status" json:"status"`
+	Name         string        `bson:"name,omitempty" json:"name"`
+	Title        string        `bson:"title,omitempty" json:"title"`
+	Photo        string        `bson:"photo,omitempty" json:"photo"`
+	PhoneNumbers []PhoneNumber `bson:"phone_numbers,inline" json:"phoneNumbers"`
+	Emails       []Email       `bson:"emails,inline" json:"emails"`
+	SocialMedias []SocialMedia `bson:"social_medias,inline" json:"socialMedias"`
+	Links        []Link        `bson:"links,inline" json:"links"`
+	Status       CardStatus    `bson:"status,omitempty" json:"status"`
 }
 
 type PhoneNumber struct {

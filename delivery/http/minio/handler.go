@@ -11,6 +11,10 @@ type Handler struct {
 	authConfig auth.Config
 }
 
-func New(minioAdp *minio.Adapter) Handler {
-	return Handler{client: minioAdp}
+func New(minioAdp *minio.Adapter, authSvc auth.Service, authConfig auth.Config) Handler {
+	return Handler{
+		client:     minioAdp,
+		authSvc:    authSvc,
+		authConfig: authConfig,
+	}
 }

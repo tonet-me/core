@@ -2,26 +2,29 @@ package miniohandler
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/tonet-me/tonet-core/pkg/claim"
 	"net/http"
 )
 
 func (h Handler) uploadUserProfile(ctx echo.Context) error {
 	fileFromClient, fErr := ctx.FormFile("profile-photo")
 	if fErr != nil {
-		return ctx.JSON(http.StatusBadRequest, "invalid file parameter")
+		return echo.NewHTTPError(http.StatusBadRequest, "invalid file parameter")
 	}
+
+	claims := claim.GetClaimsFromEchoContext(ctx)
 
 	// Get Buffer from file
 	bufferFile, oErr := fileFromClient.Open()
 	fileSize := fileFromClient.Size
 	if oErr != nil {
-		return ctx.JSON(http.StatusBadRequest, "invalid file")
+		return echo.NewHTTPError(http.StatusBadRequest, "invalid file")
 	}
 	defer bufferFile.Close()
 
-	res, cErr := h.client.UploadUserProfilePhoto(ctx.Request().Context(), "test", &bufferFile, fileSize)
+	res, cErr := h.client.UploadUserProfilePhoto(ctx.Request().Context(), claims.UserID, &bufferFile, fileSize)
 	if cErr != nil {
-		return ctx.JSON(http.StatusForbidden, cErr.Error())
+		return echo.NewHTTPError(http.StatusForbidden, cErr.Error())
 	}
 	return ctx.JSON(http.StatusOK, map[string]interface{}{"file-name": res})
 }

@@ -4,11 +4,11 @@ type User struct {
 	ID              string     `bson:"_id,omitempty" json:"id"`
 	FirstName       string     `bson:"first_name,omitempty" json:"first_name"`
 	LastName        string     `bson:"last_name,omitempty" json:"last_mame"`
-	Email           string     `bson:"email" json:"email"`
-	EmailVerified   bool       `bson:"email_verified" json:"email_verified"`
-	PhoneNumber     string     `bson:"phone_number" json:"phone_number"`
+	Email           string     `bson:"email,omitempty" json:"email"`
+	EmailVerified   bool       `bson:"email_verified,omitempty" json:"email_verified"`
+	PhoneNumber     string     `bson:"phone_number,omitempty" json:"phone_number"`
 	ProfilePhotoURL string     `bson:"profile_photo_url,omitempty" json:"profile_photo_url"`
-	Status          UserStatus `bson:"status" json:"status"`
+	Status          UserStatus `bson:"status,omitempty" json:"status"`
 }
 
 type UserStatus int
