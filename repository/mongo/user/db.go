@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"slices"
 )
 
 type Config struct {
@@ -28,9 +29,18 @@ func New(cfg Config, client *mongodb.DB) *DB {
 func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 	const op = richerror.OP("usermongo.initialCollection")
 
-	err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
-	if err != nil {
-		panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
+	collections, lErr := client.GetClient().Database(cfg.DBName).ListCollectionNames(context.Background(), bson.D{{}})
+	if lErr != nil {
+		panic(fmt.Errorf("op:%v,\nwith err:%v", op, lErr))
+	}
+	if !slices.Contains(collections, cfg.CollName) {
+		err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
+		fmt.Println("create err", err)
+
+		if err != nil {
+			panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
+		}
+
 	}
 
 	userCollection := client.GetClient().Database(cfg.DBName).Collection(cfg.CollName)
