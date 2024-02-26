@@ -48,15 +48,10 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 		Keys:    bson.D{{"email", 1}},
 		Options: options.Index().SetUnique(true),
 	}
-	_, err := userCollection.Indexes().DropOne(context.TODO(), "phone_number_1")
-	if err != nil {
-		panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
-	}
 
 	indexModelPhoneNumber := mongo.IndexModel{
 		Keys: bson.D{{"phone_number", 1}},
 	}
-	options.DropIndexes()
 	indexModelEmailAndStatus := mongo.IndexModel{
 		Keys: bson.D{{"email", 1}, {"status", 1}},
 	}
