@@ -6,7 +6,8 @@ import (
 )
 
 func (h Handler) SetRoutes(e *echo.Echo) {
-	r := e.Group("/files")
+	r := e.Group("/v1/files")
+
 	r.POST("/profile", h.uploadUserProfile, middleware.Authentication(h.authSvc, h.authConfig))
 	r.GET("/profile/:id", h.downloadUserProfile, middleware.Authentication(h.authSvc, h.authConfig))
 }

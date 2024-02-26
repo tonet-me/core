@@ -6,7 +6,7 @@ import (
 )
 
 func (h Handler) SetRoutes(e *echo.Echo) {
-	r := e.Group("/users")
+	r := e.Group("/v1/users")
 
 	r.POST("/login-or-register", h.loginOriRegister)
 	r.GET("/profile", h.getUserInfo, middleware.Authentication(h.authSvc, h.authConfig))

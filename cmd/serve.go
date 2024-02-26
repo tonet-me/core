@@ -9,6 +9,7 @@ import (
 	cardhandler "github.com/tonet-me/tonet-core/delivery/http/card"
 	miniohandler "github.com/tonet-me/tonet-core/delivery/http/minio"
 	userhandler "github.com/tonet-me/tonet-core/delivery/http/user"
+	visithandler "github.com/tonet-me/tonet-core/delivery/http/visit"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	cardmongo "github.com/tonet-me/tonet-core/repository/mongo/card"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
@@ -29,9 +30,10 @@ func StartServe(cfg config.Config) {
 	minioHandler := createMinioHandler(cfg, authGenerator)
 	userHandler := createUserHandler(cfg, mongoClient, authGenerator)
 	cardHandler := createCardHandler(cfg, mongoClient, authGenerator)
+	visitHandler := creatVisitHandler(cfg, mongoClient)
 
 	e := echo.New()
-	server := httpserver.New(cfg.HttpServer, e, userHandler, cardHandler, minioHandler)
+	server := httpserver.New(cfg.HttpServer, e, userHandler, cardHandler, minioHandler, visitHandler)
 	server.StartListening()
 }
 
@@ -56,4 +58,11 @@ func createMinioHandler(cfg config.Config, authGenerator auth.Service) httpserve
 	minioClient := minio.New(cfg.Minio)
 
 	return miniohandler.New(minioClient, authGenerator, cfg.Auth)
+}
+
+func creatVisitHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {
+	cardDB := cardmongo.New(cfg.CardMongo, client)
+	cardSvc := cardservice.New(cardDB)
+
+	return visithandler.New(cardSvc)
 }

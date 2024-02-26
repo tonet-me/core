@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -36,6 +37,8 @@ func (s *Server) StartListening() {
 	for _, handler := range s.handlers {
 		handler.SetRoutes(s.echo)
 	}
+
+	s.echo.Use(middleware.CORS())
 
 	go func() {
 		if err := s.echo.Start(s.addr); !errors.Is(err, http.ErrServerClosed) {

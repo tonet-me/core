@@ -5,8 +5,8 @@ import (
 )
 
 type LoginOrRegisterRequest struct {
-	Token        string           `json:"token"`
-	ProviderName entity.OAuthType `json:"provider_name"`
+	Token      string           `json:"token"`
+	ProviderID entity.OAuthType `json:"provider_id"`
 }
 type LoginOrRegisterResponse struct {
 	User    entity.User `json:"user"`

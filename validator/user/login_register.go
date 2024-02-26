@@ -15,7 +15,7 @@ func (v Validator) LoginRegisterRequest(req userparam.LoginOrRegisterRequest) (m
 	if err := validation.ValidateStruct(&req,
 		validation.Field(&req.Token,
 			validation.Required.Error(errmsg.ErrorMsgNeedToken)),
-		validation.Field(&req.ProviderName,
+		validation.Field(&req.ProviderID,
 			validation.Required, validation.By(v.doesTypeOfOAuthProviderExist)),
 	); err != nil {
 		fieldErrors := make(map[string]string)

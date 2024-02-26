@@ -10,7 +10,7 @@ import (
 
 func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegisterRequest) (*userparam.LoginOrRegisterResponse, error) {
 	const op = richerror.OP("userservice.LoginOrRegister")
-	userInfoFromToken, vErr := s.oAuthSvc.ValidationAndGetInfoFromToken(ctx, req.ProviderName, req.Token)
+	userInfoFromToken, vErr := s.oAuthSvc.ValidationAndGetInfoFromToken(ctx, req.ProviderID, req.Token)
 	if vErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(vErr))
