@@ -34,11 +34,11 @@ func New(cfg Config, echo *echo.Echo, handlers ...Handler) *Server {
 }
 
 func (s *Server) StartListening() {
+	s.echo.Use(middleware.CORS())
+
 	for _, handler := range s.handlers {
 		handler.SetRoutes(s.echo)
 	}
-
-	s.echo.Use(middleware.CORS())
 
 	go func() {
 		if err := s.echo.Start(s.addr); !errors.Is(err, http.ErrServerClosed) {
