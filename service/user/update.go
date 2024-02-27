@@ -18,13 +18,19 @@ func (s Service) Update(ctx context.Context, req userparam.UpdateRequest) (*user
 	}
 
 	userDataUpdate := entity.User{
-		FirstName:       req.UpdateData.FirstName,
-		LastName:        req.UpdateData.LastName,
-		Email:           user.Email,
-		PhoneNumber:     req.UpdateData.PhoneNumber,
-		ProfilePhotoURL: req.UpdateData.ProfilePhotoURL,
-		Status:          user.Status,
+		FirstName:   req.UpdateData.FirstName,
+		LastName:    req.UpdateData.LastName,
+		Email:       user.Email,
+		PhoneNumber: req.UpdateData.PhoneNumber,
+		Status:      user.Status,
 	}
+
+	if req.UpdateData.ProfilePhotoURL != nil {
+		userDataUpdate.ProfilePhotoURL = *req.UpdateData.ProfilePhotoURL
+	} else {
+		userDataUpdate.ProfilePhotoURL = user.ProfilePhotoURL
+	}
+
 	updated, uErr := s.repo.UpdateUser(ctx, req.AuthenticatedUserID, userDataUpdate)
 	if uErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),

@@ -7,6 +7,7 @@ import (
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	cardmongo "github.com/tonet-me/tonet-core/repository/mongo/card"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
+	visitmongo "github.com/tonet-me/tonet-core/repository/mongo/visit"
 	"github.com/tonet-me/tonet-core/service/auth"
 )
 
@@ -15,6 +16,7 @@ type Config struct {
 	MongoClient mongodb.Config    `koanf:"mongo_client"`
 	UserMongo   usermongo.Config  `koanf:"user_mongo"`
 	CardMongo   cardmongo.Config  `koanf:"card_mongo"`
+	VisitConfig visitmongo.Config `koanf:"visit_mongo"`
 	Auth        auth.Config       `koanf:"auth"`
 	Minio       minio.Config      `koanf:"minio"`
 	OAuth       oauth.Config      `koanf:"o_auth"`

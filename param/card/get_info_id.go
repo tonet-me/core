@@ -2,11 +2,11 @@ package cardparam
 
 import "github.com/tonet-me/tonet-core/entity"
 
-type GetInfoRequest struct {
+type GetInfoByIDRequest struct {
 	AuthenticatedUserID string
 	CardID              string `json:"card_id"`
 }
 
-type GetInfoResponse struct {
+type GetInfoByIDResponse struct {
 	Card entity.Card `json:"card"`
 }

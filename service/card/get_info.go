@@ -7,8 +7,8 @@ import (
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 )
 
-func (s Service) GetInfo(ctx context.Context, req cardparam.GetInfoRequest) (*cardparam.GetInfoResponse, error) {
-	const op = richerror.OP("cardservice.GetInfo")
+func (s Service) GetInfoByID(ctx context.Context, req cardparam.GetInfoByIDRequest) (*cardparam.GetInfoByIDResponse, error) {
+	const op = richerror.OP("cardservice.GetInfoByID")
 
 	card, gErr := s.repo.GetCardByID(ctx, req.CardID)
 	if gErr != nil {
@@ -23,5 +23,17 @@ func (s Service) GetInfo(ctx context.Context, req cardparam.GetInfoRequest) (*ca
 		)
 	}
 
-	return &cardparam.GetInfoResponse{Card: card}, nil
+	return &cardparam.GetInfoByIDResponse{Card: card}, nil
+}
+
+func (s Service) GetInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
+	const op = richerror.OP("cardservice.GetInfoByName")
+
+	card, gErr := s.repo.GetCardByName(ctx, req.Name)
+	if gErr != nil {
+		return nil, richerror.New(richerror.WithOp(op),
+			richerror.WithInnerError(gErr))
+	}
+
+	return &cardparam.GetInfoByNameResponse{Card: card}, nil
 }

@@ -5,7 +5,5 @@ import (
 )
 
 func (h Handler) SetRoutes(e *echo.Echo) {
-
 	e.GET("/:name", h.visit)
-
 }

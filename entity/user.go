@@ -7,7 +7,7 @@ type User struct {
 	Email           string     `bson:"email,omitempty" json:"email"`
 	EmailVerified   bool       `bson:"email_verified,omitempty" json:"email_verified"`
 	PhoneNumber     string     `bson:"phone_number,omitempty" json:"phone_number"`
-	ProfilePhotoURL string     `bson:"profile_photo_url,omitempty" json:"profile_photo_url"`
+	ProfilePhotoURL string     `bson:"profile_photo_url" json:"profile_photo_url"`
 	Status          UserStatus `bson:"status,omitempty" json:"status"`
 }
 

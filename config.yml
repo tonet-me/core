@@ -22,6 +22,10 @@ card_mongo:
   db_name: tonet
   coll_name: cards
 
+visit_mongo:
+  db_name: tonet
+  coll_name: visits
+
 auth:
   sign_key: mytonetsecretkey
   access_expiration_time: 24h

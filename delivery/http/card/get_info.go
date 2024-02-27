@@ -10,7 +10,7 @@ import (
 )
 
 func (h Handler) getCardInfoByID(ctx echo.Context) error {
-	req := cardparam.GetInfoRequest{}
+	req := cardparam.GetInfoByIDRequest{}
 	if bErr := ctx.Bind(&req); bErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, errmsg.ErrorMsgInvalidJson)
 	}
@@ -21,7 +21,7 @@ func (h Handler) getCardInfoByID(ctx echo.Context) error {
 	claims := claim.GetClaimsFromEchoContext(ctx)
 	req.AuthenticatedUserID = claims.UserID
 
-	res, gErr := h.cardSvc.GetInfo(ctx.Request().Context(), req)
+	res, gErr := h.cardSvc.GetInfoByID(ctx.Request().Context(), req)
 	if gErr != nil {
 		msg, code := httpmsg.Error(gErr)
 

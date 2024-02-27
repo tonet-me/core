@@ -13,9 +13,11 @@ import (
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	cardmongo "github.com/tonet-me/tonet-core/repository/mongo/card"
 	usermongo "github.com/tonet-me/tonet-core/repository/mongo/user"
+	visitmongo "github.com/tonet-me/tonet-core/repository/mongo/visit"
 	"github.com/tonet-me/tonet-core/service/auth"
 	cardservice "github.com/tonet-me/tonet-core/service/card"
 	userservice "github.com/tonet-me/tonet-core/service/user"
+	visitservice "github.com/tonet-me/tonet-core/service/visit"
 	uservalidator "github.com/tonet-me/tonet-core/validator/user"
 )
 
@@ -64,5 +66,8 @@ func creatVisitHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler
 	cardDB := cardmongo.New(cfg.CardMongo, client)
 	cardSvc := cardservice.New(cardDB)
 
-	return visithandler.New(cardSvc)
+	visitDB := visitmongo.New(cfg.VisitConfig, client)
+	visitSvc := visitservice.New(visitDB, cardSvc)
+
+	return visithandler.New(visitSvc)
 }
