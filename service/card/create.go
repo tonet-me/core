@@ -15,7 +15,7 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 		UserID:       req.AuthenticatedUserID,
 		Name:         req.CreateData.Name,
 		Title:        req.CreateData.Title,
-		Photo:        req.CreateData.Photo,
+		PhotoURL:     req.CreateData.PhotoURL,
 		PhoneNumbers: req.CreateData.PhoneNumbers,
 		Emails:       req.CreateData.Emails,
 		SocialMedias: req.CreateData.SocialMedias,

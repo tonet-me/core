@@ -27,7 +27,7 @@ func (s Service) Update(ctx context.Context, req cardparam.UpdateRequest) (*card
 	cardDataUpdate := entity.Card{
 		Name:         req.UpdateData.Name,
 		Title:        req.UpdateData.Title,
-		Photo:        req.UpdateData.Photo,
+		PhotoURL:     req.UpdateData.PhotoURL,
 		PhoneNumbers: req.UpdateData.PhoneNumbers,
 		Emails:       req.UpdateData.Emails,
 		SocialMedias: req.UpdateData.SocialMedias,

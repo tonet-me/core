@@ -5,7 +5,7 @@ type Card struct {
 	UserID       string        `bson:"user_id" json:"user_id"`
 	Name         string        `bson:"name,omitempty" json:"name"`
 	Title        string        `bson:"title,omitempty" json:"title"`
-	Photo        string        `bson:"photo,omitempty" json:"photo"`
+	PhotoURL     string        `bson:"photo_url,omitempty" json:"photo_url"`
 	PhoneNumbers []PhoneNumber `bson:"phone_numbers,inline" json:"phoneNumbers"`
 	Emails       []Email       `bson:"emails,inline" json:"emails"`
 	SocialMedias []SocialMedia `bson:"social_medias,inline" json:"socialMedias"`
