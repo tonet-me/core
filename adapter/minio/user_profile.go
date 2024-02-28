@@ -3,26 +3,38 @@ package minio
 import (
 	"context"
 	"github.com/minio/minio-go/v7"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"mime/multipart"
+	"strconv"
 	"strings"
 	"time"
 )
 
 func (a Adapter) UploadUserProfilePhoto(ctx context.Context, userID string, file *multipart.File, fileSize int64) (string, error) {
-	fileName := strings.Join([]string{userID, time.Now().String()}, `_`)
+	const op = richerror.OP("minio.DownloadUserProfilePhoto")
 
-	key, pErr := a.upload(ctx, a.userBucketName, fileName, file, fileSize)
-	if pErr != nil {
-		return "", pErr
+	fileName := strings.Join([]string{userID, strconv.FormatInt(time.Now().Unix(), 10)}, `_`)
+
+	key, uErr := a.upload(ctx, a.userBucketName, fileName, file, fileSize)
+	if uErr != nil {
+		return "", richerror.New(
+			richerror.WithOp(op),
+			richerror.WithInnerError(uErr),
+		)
 	}
 
 	return key, nil
 }
 
 func (a Adapter) DownloadUserProfilePhoto(ctx context.Context, fileName string) (*minio.Object, error) {
-	object, pErr := a.download(ctx, a.userBucketName, fileName)
-	if pErr != nil {
-		return nil, pErr
+	const op = richerror.OP("minio.DownloadUserProfilePhoto")
+
+	object, dErr := a.download(ctx, a.userBucketName, fileName)
+	if dErr != nil {
+		return nil, richerror.New(
+			richerror.WithOp(op),
+			richerror.WithInnerError(dErr),
+		)
 	}
 
 	return object, nil

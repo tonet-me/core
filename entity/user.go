@@ -3,7 +3,7 @@ package entity
 type User struct {
 	ID              string     `bson:"_id,omitempty" json:"id"`
 	FirstName       string     `bson:"first_name,omitempty" json:"first_name"`
-	LastName        string     `bson:"last_name,omitempty" json:"last_mame"`
+	LastName        string     `bson:"last_name,omitempty" json:"last_name"`
 	Email           string     `bson:"email,omitempty" json:"email"`
 	EmailVerified   bool       `bson:"email_verified,omitempty" json:"email_verified"`
 	PhoneNumber     string     `bson:"phone_number,omitempty" json:"phone_number"`
