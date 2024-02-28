@@ -7,7 +7,6 @@ import (
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
-	"regexp"
 )
 
 func (v Validator) UpdateRequest(req userparam.UpdateRequest) (map[string]string, error) {
@@ -20,8 +19,8 @@ func (v Validator) UpdateRequest(req userparam.UpdateRequest) (map[string]string
 		validation.Field(&req.UpdateData.LastName,
 			validation.Length(2, 30),
 		),
-		validation.Field(&req.UpdateData.PhoneNumber,
-			validation.Match(regexp.MustCompile(`^[+][0-9]*$`))),
+		//validation.Field(&req.UpdateData.PhoneNumber,
+		//	validation.Match(regexp.MustCompile(`^[+][0-9]*$`))),
 	); err != nil {
 		fieldErrors := make(map[string]string)
 		fmt.Println("err", err)

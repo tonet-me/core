@@ -49,6 +49,7 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 		Options: options.Index().SetUnique(true),
 	}
 
+	userCollection.Indexes().DropOne(context.TODO(), "phone_number_1")
 	indexModelPhoneNumber := mongo.IndexModel{
 		Keys: bson.D{{"phone_number", 1}},
 	}

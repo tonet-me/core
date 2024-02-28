@@ -14,8 +14,8 @@ type Card struct {
 }
 
 type PhoneNumber struct {
-	Title string `bson:"title" json:"title"`
-	Value string `bson:"value" json:"value"`
+	Title string           `bson:"title" json:"title"`
+	Value PhoneNumberValue `bson:"value,inline" json:"value"`
 }
 
 type Email struct {
