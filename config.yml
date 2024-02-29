@@ -28,8 +28,8 @@ visit_mongo:
 
 auth:
   sign_key: mytonetsecretkey
-  access_expiration_time: 24h
-  RefreshExpirationTime: 48h
+  access_expiration_time: 40s
+  RefreshExpirationTime: 80s
   access_subject: acctoken
   refresh_subject: rftoken
 
