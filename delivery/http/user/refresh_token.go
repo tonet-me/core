@@ -36,7 +36,7 @@ func (h Handler) getTokenFromRefreshToken(ctx echo.Context) error {
 	}
 
 	authenticate := entity.Authenticable{
-		ID: claims.ID,
+		ID: claims.UserID,
 	}
 
 	res, gErr := h.userSvc.GenerateTokens(authenticate)
