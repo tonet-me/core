@@ -12,6 +12,7 @@ const (
 	ErrorMsgUserNotFound           = "user not found"
 
 	ErrorMsgNeedToken          = "token not found"
+	ErrorMsgNeedRefreshToken   = "refresh token not found"
 	ErrorMsgTypeOfOAuthInvalid = "the oAuth provider type invalid"
 
 	ErrorMsgInvalidJson = "invalid json format"

@@ -7,6 +7,7 @@ import (
 
 func (h Handler) SetRoutes(e *echo.Echo) {
 	r := e.Group("/v1/cards")
+
 	r.POST("/", h.createNewCard, middleware.Authentication(h.authSvc, h.authConfig))
 	r.PUT("/", h.updateCard, middleware.Authentication(h.authSvc, h.authConfig))
 	r.GET("/:id", h.getCardInfoByID, middleware.Authentication(h.authSvc, h.authConfig))

@@ -2,7 +2,6 @@ package userservice
 
 import (
 	"context"
-	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
@@ -43,28 +42,19 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 		isNewUser = true
 	}
 
-	fmt.Println("user id service", user.ID)
 	authenticate := entity.Authenticable{
 		ID: user.ID,
 	}
-	accessToken, caErr := s.authGenerator.CreateAccessToken(authenticate)
-	if caErr != nil {
-		return nil, richerror.New(richerror.WithOp(op),
-			richerror.WithInnerError(caErr))
-	}
 
-	refreshToken, crEre := s.authGenerator.CreateRefreshToken(authenticate)
-	if crEre != nil {
+	tokens, gErr := s.GenerateTokens(authenticate)
+	if gErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
-			richerror.WithInnerError(crEre))
+			richerror.WithInnerError(gErr))
 	}
 
 	return &userparam.LoginOrRegisterResponse{
-		User: user,
-		Tokens: userparam.Tokens{
-			AccessToken:  accessToken,
-			RefreshToken: refreshToken,
-		},
+		User:    user,
+		Tokens:  *tokens,
 		NewUser: isNewUser,
 	}, nil
 
