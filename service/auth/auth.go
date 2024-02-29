@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"errors"
+	"fmt"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/tonet-me/tonet-core/entity"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
@@ -40,11 +42,18 @@ func (s Service) ParseToken(bearerToken string) (*Claims, error) {
 
 	// https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-ParseWithClaims-CustomClaimsType
 	tokenStr := strings.Replace(bearerToken, "Bearer ", "", 1)
-
+	fmt.Println("token 2", tokenStr)
 	token, err := jwt.ParseWithClaims(tokenStr, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(s.config.SignKey), nil
 	})
 	if err != nil {
+		if errors.Is(err, jwt.ErrTokenExpired) {
+			return nil, richerror.New(richerror.WithOp(op),
+				richerror.WithKind(richerror.ErrKindForbidden),
+				richerror.WithMessage(errmsg.ErrorMsgExpiredToken),
+				richerror.WithInnerError(err))
+		}
+
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithKind(richerror.ErrKindUnExpected),
 			richerror.WithInnerError(err))

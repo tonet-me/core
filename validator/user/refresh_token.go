@@ -9,14 +9,12 @@ import (
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 )
 
-func (v Validator) LoginRegisterRequest(req userparam.LoginOrRegisterRequest) (map[string]string, error) {
+func (v Validator) RefreshTokenRequest(req userparam.GetRefreshTokenRequest) (map[string]string, error) {
 	const op = "uservalidator.LoginRegisterRequest"
 
 	if err := validation.ValidateStruct(&req,
-		validation.Field(&req.Token,
-			validation.Required.Error(errmsg.ErrorMsgNeedToken)),
-		validation.Field(&req.ProviderID,
-			validation.Required, validation.By(v.doesTypeOfOAuthProviderExist)),
+		validation.Field(&req.RefreshToken,
+			validation.Required.Error(errmsg.ErrorMsgNeedRefreshToken)),
 	); err != nil {
 		fieldErrors := make(map[string]string)
 
@@ -38,5 +36,6 @@ func (v Validator) LoginRegisterRequest(req userparam.LoginOrRegisterRequest) (m
 		)
 	}
 
+	//nolint
 	return nil, nil
 }

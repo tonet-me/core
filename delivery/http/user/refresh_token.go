@@ -15,6 +15,15 @@ func (h Handler) getTokenFromRefreshToken(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, errmsg.ErrorMsgInvalidJson)
 	}
 
+	if fieldErrors, err := h.userVld.RefreshTokenRequest(req); err != nil {
+		msg, code := httpmsg.Error(err)
+
+		return ctx.JSON(code, echo.Map{
+			"message": msg,
+			"errors":  fieldErrors,
+		})
+	}
+
 	claims, pErr := h.authSvc.ParseToken(req.RefreshToken)
 	if pErr != nil {
 		msg, code := httpmsg.Error(pErr)
@@ -23,7 +32,7 @@ func (h Handler) getTokenFromRefreshToken(ctx echo.Context) error {
 	}
 
 	if claims.Subject != h.authConfig.RefreshSubject {
-		return echo.NewHTTPError(http.StatusBadRequest, errmsg.ErrorMsgNeedRefreshToken)
+		return echo.NewHTTPError(http.StatusBadRequest, errmsg.ErrorMsgInvalidRefreshToken)
 	}
 
 	authenticate := entity.Authenticable{

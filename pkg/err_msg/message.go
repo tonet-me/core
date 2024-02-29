@@ -11,9 +11,11 @@ const (
 	ErrorMsgUserNotAllowed         = "user not allowed"
 	ErrorMsgUserNotFound           = "user not found"
 
-	ErrorMsgNeedToken          = "token not found"
-	ErrorMsgNeedRefreshToken   = "refresh token not found"
-	ErrorMsgTypeOfOAuthInvalid = "the oAuth provider type invalid"
+	ErrorMsgNeedToken           = "token not found"
+	ErrorMsgNeedRefreshToken    = "refresh_token not found"
+	ErrorMsgInvalidRefreshToken = "refresh token invalid"
+	ErrorMsgTypeOfOAuthInvalid  = "the oAuth provider type invalid"
+	ErrorMsgExpiredToken        = "token is expired"
 
 	ErrorMsgInvalidJson = "invalid json format"
 )
