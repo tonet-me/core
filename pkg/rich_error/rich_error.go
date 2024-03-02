@@ -15,7 +15,7 @@ type RichError struct {
 }
 
 func (r *RichError) Error() string {
-	return r.message
+	return r.Message()
 }
 
 func New(options ...RichErrorOption) *RichError {

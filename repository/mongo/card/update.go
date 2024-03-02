@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"time"
 )
 
 func (d DB) UpdateCard(ctx context.Context, cardID string, card entity.Card) (bool, error) {
@@ -23,6 +24,8 @@ func (d DB) UpdateCard(ctx context.Context, cardID string, card entity.Card) (bo
 			richerror.WithInnerError(oErr))
 
 	}
+
+	card.UpdatedAt = time.Now()
 
 	update := bson.D{{"$set", card}}
 	updatedResult, err := d.collection.UpdateByID(ctx, id, update)

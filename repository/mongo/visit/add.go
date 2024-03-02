@@ -4,10 +4,15 @@ import (
 	"context"
 	"github.com/tonet-me/tonet-core/entity"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"time"
 )
 
 func (d DB) AddVisitToCard(ctx context.Context, visit entity.Visit) error {
-	const op = richerror.OP("visitmongo.GetCardByID")
+	const op = richerror.OP("visitmongo.AddVisitToCard")
+
+	timeNow := time.Now()
+	visit.CreatedAt = timeNow
+	visit.UpdatedAt = timeNow
 
 	_, err := d.collection.InsertOne(ctx, visit)
 	if err != nil {

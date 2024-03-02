@@ -35,7 +35,6 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 	}
 	if !slices.Contains(collections, cfg.CollName) {
 		err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
-		fmt.Println("create err", err)
 
 		if err != nil {
 			panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))

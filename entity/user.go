@@ -1,5 +1,9 @@
 package entity
 
+import (
+	"time"
+)
+
 type User struct {
 	ID              string           `bson:"_id,omitempty" json:"id"`
 	FirstName       string           `bson:"first_name,omitempty" json:"first_name"`
@@ -9,6 +13,8 @@ type User struct {
 	PhoneNumber     PhoneNumberValue `bson:"phone_number,omitempty,inline" json:"phone_number"`
 	ProfilePhotoURL string           `bson:"profile_photo_url" json:"profile_photo_url"`
 	Status          UserStatus       `bson:"status,omitempty" json:"status"`
+	CreatedAt       time.Time        `bson:"created_at" json:"created_at"`
+	UpdatedAt       time.Time        `bson:"updated_at" json:"updated_at"`
 }
 
 type UserStatus int

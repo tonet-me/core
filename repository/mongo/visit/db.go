@@ -7,7 +7,6 @@ import (
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"slices"
 )
 
@@ -29,24 +28,20 @@ func New(cfg Config, client *mongodb.DB) *DB {
 func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 	const op = richerror.OP("visitmongo.initialCollection")
 
-	collections, lErr := client.GetClient().Database(cfg.DBName).ListCollectionNames(context.Background(), bson.D{{}})
+	collections, lErr := client.GetClient().Database(cfg.DBName).ListCollectionNames(context.TODO(), bson.D{{}})
 	if lErr != nil {
 		panic(fmt.Errorf("op:%v,\nwith err:%v", op, lErr))
 	}
 	if !slices.Contains(collections, cfg.CollName) {
 		err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
-		fmt.Println("create err", err)
-
 		if err != nil {
 			panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
 		}
-
 	}
 	cardCollection := client.GetClient().Database(cfg.DBName).Collection(cfg.CollName)
 
 	indexModelCardName := mongo.IndexModel{
-		Keys:    bson.D{{"card_id", 1}},
-		Options: options.Index().SetUnique(true),
+		Keys: bson.D{{"card_id", 1}},
 	}
 
 	_, iErr := cardCollection.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{indexModelCardName})

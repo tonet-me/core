@@ -7,6 +7,7 @@ const (
 	ErrorMsgInvalidStatus          = "invalid status"
 	ErrorMsgPhoneNumberIsNotUnique = "phone number is not unique"
 	ErrorMsgEmailIsNotUnique       = "email is not unique"
+	ErrorMsgCardNameNotUnique      = "card name is not unique"
 	ErrorMsgPhoneNumberIsNotValid  = "phone number is not valid"
 	ErrorMsgUserNotAllowed         = "user not allowed"
 	ErrorMsgUserNotFound           = "user not found"

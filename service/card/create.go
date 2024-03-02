@@ -11,17 +11,8 @@ import (
 func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) (*cardparam.CreateNewResponse, error) {
 	const op = richerror.OP("cardservice.CreateNew")
 
-	newCard := entity.Card{
-		UserID:       req.AuthenticatedUserID,
-		Name:         req.CreateData.Name,
-		Title:        req.CreateData.Title,
-		PhotoURL:     req.CreateData.PhotoURL,
-		PhoneNumbers: req.CreateData.PhoneNumbers,
-		Emails:       req.CreateData.Emails,
-		SocialMedias: req.CreateData.SocialMedias,
-		Links:        req.CreateData.Links,
-		Status:       req.CreateData.Status,
-	}
+	//created to fills zero value to pointer fields in request
+	var optionalCardField entity.Card
 
 	existed, iErr := s.repo.IsCardExistByName(ctx, req.CreateData.Name)
 	if iErr != nil {
@@ -31,9 +22,25 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 	}
 	if existed {
 		return nil, richerror.New(richerror.WithOp(op),
-			richerror.WithKind(richerror.ErrKindNotFound),
-			richerror.WithMessage(errmsg.ErrorMsgNotFound),
+			richerror.WithKind(richerror.ErrKindStatusConflict),
+			richerror.WithMessage(errmsg.ErrorMsgCardNameNotUnique),
 		)
+	}
+
+	if !req.CreateData.Status.IsValid() {
+		req.CreateData.Status = entity.CardStatusActive
+	}
+
+	newCard := entity.Card{
+		UserID:       req.AuthenticatedUserID,
+		Name:         req.CreateData.Name,
+		Title:        req.CreateData.Title,
+		PhotoURL:     optionalCardField.PhotoURL,
+		PhoneNumbers: optionalCardField.PhoneNumbers,
+		Emails:       optionalCardField.Emails,
+		SocialMedias: optionalCardField.SocialMedias,
+		Links:        optionalCardField.Links,
+		Status:       req.CreateData.Status,
 	}
 
 	createdCard, cErr := s.repo.CreateNewCard(ctx, newCard)

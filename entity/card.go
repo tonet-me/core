@@ -1,16 +1,22 @@
 package entity
 
+import (
+	"time"
+)
+
 type Card struct {
 	ID           string        `bson:"_id,omitempty" json:"id"`
-	UserID       string        `bson:"user_id" json:"user_id"`
+	UserID       string        `bson:"user_id,omitempty" json:"user_id"`
 	Name         string        `bson:"name,omitempty" json:"name"`
 	Title        string        `bson:"title,omitempty" json:"title"`
-	PhotoURL     string        `bson:"photo_url,omitempty" json:"photo_url"`
-	PhoneNumbers []PhoneNumber `bson:"phone_numbers,inline" json:"phoneNumbers"`
-	Emails       []Email       `bson:"emails,inline" json:"emails"`
-	SocialMedias []SocialMedia `bson:"social_medias,inline" json:"socialMedias"`
-	Links        []Link        `bson:"links,inline" json:"links"`
+	PhotoURL     string        `bson:"photo_url" json:"photo_url"`
+	PhoneNumbers []PhoneNumber `bson:"phone_numbers" json:"phone_numbers"`
+	Emails       []Email       `bson:"emails" json:"emails"`
+	SocialMedias []SocialMedia `bson:"social_medias" json:"social_medias"`
+	Links        []Link        `bson:"links" json:"links"`
 	Status       CardStatus    `bson:"status,omitempty" json:"status"`
+	CreatedAt    time.Time     `bson:"created_at" json:"created_at"`
+	UpdatedAt    time.Time     `bson:"updated_at" json:"updated_at"`
 }
 
 type PhoneNumber struct {

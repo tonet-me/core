@@ -12,12 +12,12 @@ type CreateNewResponse struct {
 }
 
 type CardCreateData struct {
-	Name         string               `json:"name"`
-	Title        string               `json:"title"`
-	PhotoURL     string               `json:"photo_url"`
-	PhoneNumbers []entity.PhoneNumber `json:"phone_numbers"`
-	Emails       []entity.Email       `json:"emails"`
-	SocialMedias []entity.SocialMedia `json:"social_medias"`
-	Links        []entity.Link        `json:"links"`
-	Status       entity.CardStatus    `json:"status"`
+	Name         string                `json:"name"`
+	Title        string                `json:"title"`
+	PhotoURL     *string               `json:"photo_url"`
+	PhoneNumbers *[]entity.PhoneNumber `json:"phone_numbers"`
+	Emails       *[]entity.Email       `json:"emails"`
+	SocialMedias *[]entity.SocialMedia `json:"social_medias"`
+	Links        *[]entity.Link        `json:"links"`
+	Status       entity.CardStatus     `json:"status"`
 }

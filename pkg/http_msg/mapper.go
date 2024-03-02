@@ -44,6 +44,9 @@ func mapKindToHTTPStatusCode(kind richerror.Kind) int {
 	case richerror.ErrKindUnExpected:
 
 		return http.StatusInternalServerError
+	case richerror.ErrKindStatusConflict:
+		return http.StatusConflict
+
 	default:
 
 		return http.StatusBadRequest

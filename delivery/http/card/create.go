@@ -3,6 +3,7 @@ package cardhandler
 import (
 	"github.com/labstack/echo/v4"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
+	"github.com/tonet-me/tonet-core/pkg/claim"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	httpmsg "github.com/tonet-me/tonet-core/pkg/http_msg"
 	"net/http"
@@ -14,6 +15,9 @@ func (h Handler) createNewCard(ctx echo.Context) error {
 	if bErr != nil {
 		return ctx.JSON(http.StatusBadRequest, errmsg.ErrorMsgInvalidJson)
 	}
+
+	claims := claim.GetClaimsFromEchoContext(ctx)
+	req.AuthenticatedUserID = claims.UserID
 
 	res, cErr := h.cardSvc.CreateNew(ctx.Request().Context(), req)
 	if cErr != nil {

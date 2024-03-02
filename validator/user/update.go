@@ -2,7 +2,6 @@ package uservalidator
 
 import (
 	"errors"
-	"fmt"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
@@ -23,7 +22,6 @@ func (v Validator) UpdateRequest(req userparam.UpdateRequest) (map[string]string
 		//	validation.Match(regexp.MustCompile(`^[+][0-9]*$`))),
 	); err != nil {
 		fieldErrors := make(map[string]string)
-		fmt.Println("err", err)
 		vErr := validation.Errors{}
 		if errors.As(err, &vErr) {
 			for key, value := range vErr {

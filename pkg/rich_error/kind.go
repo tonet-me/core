@@ -8,4 +8,5 @@ const (
 	ErrKindForbidden
 	ErrKindUnExpected
 	ErrKindBadRequest
+	ErrKindStatusConflict
 )
