@@ -19,4 +19,9 @@ const (
 	ErrorMsgExpiredToken        = "token is expired"
 
 	ErrorMsgInvalidJson = "invalid json format"
+
+	ErrorMsgCardStatusInvalid          = "the card status invalid"
+	ErrorMsgCardSocialMediaTypeInvalid = "the social media type invalid"
+	ErrorMsgNeedName                   = "name not found"
+	ErrorMsgNeedTitle                  = "title not found"
 )

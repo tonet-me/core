@@ -12,11 +12,12 @@ import (
 func (v Validator) RefreshTokenRequest(req userparam.GetRefreshTokenRequest) (map[string]string, error) {
 	const op = "uservalidator.LoginRegisterRequest"
 
+	fieldErrors := make(map[string]string)
+
 	if err := validation.ValidateStruct(&req,
 		validation.Field(&req.RefreshToken,
 			validation.Required.Error(errmsg.ErrorMsgNeedRefreshToken)),
 	); err != nil {
-		fieldErrors := make(map[string]string)
 
 		vErr := validation.Errors{}
 		if errors.As(err, &vErr) {

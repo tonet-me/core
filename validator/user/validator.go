@@ -6,7 +6,8 @@ import (
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 )
 
-type Validator struct{}
+type Validator struct {
+}
 
 func New() Validator {
 	return Validator{}

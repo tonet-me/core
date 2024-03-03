@@ -4,6 +4,9 @@ cloud.google.com/go/compute/internal
 # cloud.google.com/go/compute/metadata v0.2.3
 ## explicit; go 1.19
 cloud.google.com/go/compute/metadata
+# github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
+## explicit; go 1.12
+github.com/asaskevich/govalidator
 # github.com/dustin/go-humanize v1.0.1
 ## explicit; go 1.16
 github.com/dustin/go-humanize
@@ -26,6 +29,7 @@ github.com/go-logr/stdr
 # github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 ## explicit; go 1.13
 github.com/go-ozzo/ozzo-validation/v4
+github.com/go-ozzo/ozzo-validation/v4/is
 # github.com/golang-jwt/jwt v3.2.2+incompatible
 ## explicit
 github.com/golang-jwt/jwt

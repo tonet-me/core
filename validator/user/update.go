@@ -11,6 +11,8 @@ import (
 func (v Validator) UpdateRequest(req userparam.UpdateRequest) (map[string]string, error) {
 	const op = "uservalidator.UpdateRequest"
 
+	fieldErrors := make(map[string]string)
+
 	if err := validation.ValidateStruct(&req.UpdateData,
 		validation.Field(&req.UpdateData.FirstName,
 			validation.Length(2, 30),
@@ -21,7 +23,6 @@ func (v Validator) UpdateRequest(req userparam.UpdateRequest) (map[string]string
 		//validation.Field(&req.UpdateData.PhoneNumber,
 		//	validation.Match(regexp.MustCompile(`^[+][0-9]*$`))),
 	); err != nil {
-		fieldErrors := make(map[string]string)
 		vErr := validation.Errors{}
 		if errors.As(err, &vErr) {
 			for key, value := range vErr {

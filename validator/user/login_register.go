@@ -12,13 +12,14 @@ import (
 func (v Validator) LoginRegisterRequest(req userparam.LoginOrRegisterRequest) (map[string]string, error) {
 	const op = "uservalidator.LoginRegisterRequest"
 
+	fieldErrors := make(map[string]string)
+
 	if err := validation.ValidateStruct(&req,
 		validation.Field(&req.Token,
 			validation.Required.Error(errmsg.ErrorMsgNeedToken)),
 		validation.Field(&req.ProviderID,
 			validation.Required, validation.By(v.doesTypeOfOAuthProviderExist)),
 	); err != nil {
-		fieldErrors := make(map[string]string)
 
 		vErr := validation.Errors{}
 		if errors.As(err, &vErr) {
