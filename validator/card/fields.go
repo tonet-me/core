@@ -117,8 +117,8 @@ func (v Validator) validatePhoneNumbers(phoneNumbers *[]entity.PhoneNumber, fiel
 		for _, phoneNumber := range *phoneNumbers {
 			if err := validation.ValidateStruct(&phoneNumber.Value,
 				validation.Field(&phoneNumber.Value.Number, validation.Required, validation.Match(regexp.MustCompile(`^[0-9]`))),
-				validation.Field(&phoneNumber.Value.CountryCode, validation.Required),
-				validation.Field(&phoneNumber.Value.Prefix, validation.Required),
+				validation.Field(&phoneNumber.Value.CountryCode, validation.Required), //Todo: add regex IR
+				validation.Field(&phoneNumber.Value.Prefix, validation.Required),      //Todo: add regex +98
 			); err != nil {
 				vErr := validation.Errors{}
 				if errors.As(err, &vErr) {

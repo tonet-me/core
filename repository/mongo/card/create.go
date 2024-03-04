@@ -28,7 +28,7 @@ func (d DB) CreateNewCard(ctx context.Context, card entity.Card) (entity.Card, e
 			richerror.WithKind(richerror.ErrKindUnExpected),
 		)
 	}
-	card.ID = cardObjectID.String()
+	card.ID = cardObjectID.Hex()
 
 	return card, nil
 }

@@ -14,6 +14,7 @@ type CreateNewResponse struct {
 type CardCreateData struct {
 	Name         string                `json:"name"`
 	Title        string                `json:"title"`
+	About        *string               `json:"about"`
 	PhotoURL     *string               `json:"photo_url"`
 	PhoneNumbers *[]entity.PhoneNumber `json:"phone_numbers"`
 	Emails       *[]entity.Email       `json:"emails"`

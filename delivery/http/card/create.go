@@ -18,6 +18,7 @@ func (h Handler) createNewCard(ctx echo.Context) error {
 
 	claims := claim.GetClaimsFromEchoContext(ctx)
 	req.AuthenticatedUserID = claims.UserID
+
 	if fieldErrors, err := h.cardVld.CreateRequest(req); err != nil {
 		msg, code := httpmsg.Error(err)
 

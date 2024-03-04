@@ -11,9 +11,6 @@ import (
 func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) (*cardparam.CreateNewResponse, error) {
 	const op = richerror.OP("cardservice.CreateNew")
 
-	//created to fills zero value to pointer fields in request
-	var optionalCardField entity.Card
-
 	existed, iErr := s.repo.IsCardExistByName(ctx, req.CreateData.Name)
 	if iErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
@@ -31,10 +28,15 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 		req.CreateData.Status = entity.CardStatusActive
 	}
 
+	//created to fills zero value to pointer fields in request
+	var optionalCardField entity.Card
+	s.checkOptionalOnCreate(req, &optionalCardField)
+
 	newCard := entity.Card{
 		UserID:       req.AuthenticatedUserID,
 		Name:         req.CreateData.Name,
 		Title:        req.CreateData.Title,
+		About:        optionalCardField.About,
 		PhotoURL:     optionalCardField.PhotoURL,
 		PhoneNumbers: optionalCardField.PhoneNumbers,
 		Emails:       optionalCardField.Emails,
@@ -51,4 +53,25 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 	}
 
 	return &cardparam.CreateNewResponse{Card: createdCard}, nil
+}
+
+func (s Service) checkOptionalOnCreate(req cardparam.CreateNewRequest, optionalCardField *entity.Card) {
+	if req.CreateData.About != nil {
+		optionalCardField.About = *req.CreateData.About
+	}
+	if req.CreateData.PhotoURL != nil {
+		optionalCardField.PhotoURL = *req.CreateData.PhotoURL
+	}
+	if req.CreateData.PhoneNumbers != nil {
+		optionalCardField.PhoneNumbers = *req.CreateData.PhoneNumbers
+	}
+	if req.CreateData.Emails != nil {
+		optionalCardField.Emails = *req.CreateData.Emails
+	}
+	if req.CreateData.SocialMedias != nil {
+		optionalCardField.SocialMedias = *req.CreateData.SocialMedias
+	}
+	if req.CreateData.Links != nil {
+		optionalCardField.Links = *req.CreateData.Links
+	}
 }

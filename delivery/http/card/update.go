@@ -19,6 +19,15 @@ func (h Handler) updateCard(ctx echo.Context) error {
 	claims := claim.GetClaimsFromEchoContext(ctx)
 	req.AuthenticatedUserID = claims.UserID
 
+	if fieldErrors, err := h.cardVld.UpdateRequest(req); err != nil {
+		msg, code := httpmsg.Error(err)
+
+		return ctx.JSON(code, echo.Map{
+			"message": msg,
+			"errors":  fieldErrors,
+		})
+	}
+
 	res, uErr := h.cardSvc.Update(ctx.Request().Context(), req)
 	if uErr != nil {
 		msg, code := httpmsg.Error(uErr)
