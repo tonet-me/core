@@ -20,6 +20,7 @@ func (s Service) GenerateTokens(authenticate entity.Authenticable) (*userparam.T
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(crEre))
 	}
+
 	return &userparam.Tokens{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,

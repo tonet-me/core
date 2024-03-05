@@ -24,6 +24,7 @@ func (s Service) Update(ctx context.Context, req cardparam.UpdateRequest) (*card
 			richerror.WithMessage(errmsg.ErrorMsgUserNotAllowed),
 		)
 	}
+
 	//created to fills zero value to pointer fields in request
 	var optionalCardField entity.Card
 	s.checkOptionalOnUpdate(req, card, &optionalCardField)

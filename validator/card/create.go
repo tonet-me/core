@@ -7,6 +7,7 @@ import (
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"regexp"
 )
 
 /*
@@ -28,9 +29,10 @@ func (v Validator) CreateRequest(req cardparam.CreateNewRequest) (map[string]str
 			validation.Required.Error(errmsg.ErrorMsgNeedTitle),
 			validation.Length(1, 20)),
 
-		validation.Field(&req.CreateData.Name, //Todo: add regex just english character
+		validation.Field(&req.CreateData.Name,
 			validation.Required.Error(errmsg.ErrorMsgNeedName),
-			validation.Length(4, 25)),
+			validation.Length(4, 25),
+			validation.Match(regexp.MustCompile("^[a-zA-Z0-9]+(?:[_.][a-zA-Z0-9]+)*$"))),
 
 		validation.Field(&req.CreateData.PhotoURL,
 			validation.Length(10, 220)),

@@ -1,6 +1,7 @@
 package errmsg
 
 const (
+	ErrorMsg                       = "err-msg"
 	ErrorMsgNotFound               = "record not found"
 	ErrorMsgSomethingWentWrong     = "something went wrong"
 	ErrorMsgInvalidInput           = "invalid input"

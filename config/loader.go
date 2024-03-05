@@ -6,7 +6,11 @@ import (
 	"github.com/knadh/koanf/providers/env"
 	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/structs"
+	"github.com/tonet-me/tonet-core/logger"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
+	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"log"
+	"log/slog"
 	"strings"
 )
 
@@ -36,21 +40,22 @@ func defaultCallbackEnv(source string) string {
 }
 
 func init() {
+	const op = richerror.OP("config.init")
 	k := koanf.New(defaultDelimiter)
 
 	// load default configuration from Default function
 	if err := k.Load(structs.Provider(Default(), "koanf"), nil); err != nil {
-		log.Fatalf("error loading default config: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	// load configuration from yaml file
 	if err := k.Load(file.Provider(defaultYamlFilePath), yaml.Parser()); err != nil {
-		log.Printf("error loading config from `config.yml` file: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	// load from environment variable
 	if err := k.Load(env.Provider(defaultPrefix, defaultDelimiter, defaultCallbackEnv), nil); err != nil {
-		log.Printf("error loading environment variables: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	if err := k.Unmarshal("", &c); err != nil {
@@ -63,18 +68,20 @@ func C() Config {
 }
 
 func New(opt Option) Config {
+	const op = richerror.OP("config.New")
+
 	k := koanf.New(opt.Separator)
 
 	if err := k.Load(structs.Provider(Default(), "koanf"), nil); err != nil {
-		log.Fatalf("error loading default config: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	if err := k.Load(file.Provider(opt.YamlFilePath), yaml.Parser()); err != nil {
-		log.Printf("error loading config from `config.yml` file: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	if err := k.Load(env.Provider(opt.Prefix, opt.Delimiter, opt.CallbackEnv), nil); err != nil {
-		log.Printf("error loading environment variables: %s", err)
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
 	}
 
 	if err := k.Unmarshal("", &c); err != nil {

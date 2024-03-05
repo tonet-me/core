@@ -46,10 +46,10 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 		ID: user.ID,
 	}
 
-	tokens, gErr := s.GenerateTokens(authenticate)
-	if gErr != nil {
+	tokens, tErr := s.GenerateTokens(authenticate)
+	if tErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
-			richerror.WithInnerError(gErr))
+			richerror.WithInnerError(tErr))
 	}
 
 	return &userparam.LoginOrRegisterResponse{

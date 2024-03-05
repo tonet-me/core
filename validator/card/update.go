@@ -7,6 +7,7 @@ import (
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"regexp"
 )
 
 func (v Validator) UpdateRequest(req cardparam.UpdateRequest) (map[string]string, error) {
@@ -21,7 +22,8 @@ func (v Validator) UpdateRequest(req cardparam.UpdateRequest) (map[string]string
 
 		validation.Field(&req.UpdateData.Name,
 			validation.Required.Error(errmsg.ErrorMsgNeedName),
-			validation.Length(4, 25)),
+			validation.Length(4, 25),
+			validation.Match(regexp.MustCompile("^[a-zA-Z0-9]+(?:[_.][a-zA-Z0-9]+)*$"))),
 
 		validation.Field(&req.UpdateData.PhotoURL,
 			validation.Length(10, 220)),

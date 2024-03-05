@@ -2,18 +2,19 @@ package httpmsg
 
 import (
 	"errors"
-	"fmt"
+	"github.com/tonet-me/tonet-core/logger"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"log/slog"
 	"net/http"
 )
 
-// TODO: this temperary to ignore linter error.(maggic number).
 const (
 	internalStatus = 500
 )
 
 func Error(err error) (message string, code int) {
+	const op = richerror.OP("httpmsg.Error")
 	re := new(richerror.RichError)
 	if !errors.As(err, &re) {
 		return err.Error(), http.StatusBadRequest
@@ -22,8 +23,7 @@ func Error(err error) (message string, code int) {
 	code = mapKindToHTTPStatusCode(re.Kind())
 	// we should not expose unexpected error messages
 	if code >= internalStatus {
-		// TODO - we have to use log instead of print
-		fmt.Println("internal error: ", msg)
+		logger.GetLogger().Error(string(op), slog.String("internal error", msg))
 		msg = errmsg.ErrorMsgSomethingWentWrong
 	}
 

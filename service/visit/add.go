@@ -2,10 +2,12 @@ package visitservice
 
 import (
 	"context"
-	"github.com/labstack/gommon/log"
 	"github.com/tonet-me/tonet-core/entity"
+	"github.com/tonet-me/tonet-core/logger"
 	visitparam "github.com/tonet-me/tonet-core/param/visit"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"log/slog"
 )
 
 func (s Service) AddNewVisitToCard(ctx context.Context, req visitparam.AddNewCardVisitRequest) (*visitparam.GetCardInfoByNameResponse, error) {
@@ -24,7 +26,7 @@ func (s Service) AddNewVisitToCard(ctx context.Context, req visitparam.AddNewCar
 	}
 	//TODO: check to use go routine and then -> need handle error with go?
 	if err := s.repo.AddVisitToCard(ctx, newVisit); err != nil {
-		log.Errorf("error in op:%s, with message:%s", op, err.Error())
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()), slog.Any("visit-data", newVisit))
 	}
 	return &visitparam.GetCardInfoByNameResponse{Card: getCard.Card}, nil
 

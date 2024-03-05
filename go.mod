@@ -13,6 +13,7 @@ require (
 	go.mongodb.org/mongo-driver v1.13.1
 	golang.org/x/oauth2 v0.17.0
 	google.golang.org/api v0.165.0
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
 require (

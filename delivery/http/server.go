@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/tonet-me/tonet-core/logger"
+	httpmsg "github.com/tonet-me/tonet-core/pkg/http_msg"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"time"
@@ -36,6 +39,42 @@ func New(cfg Config, echo *echo.Echo, handlers ...Handler) *Server {
 func (s *Server) StartListening() {
 	s.echo.Use(middleware.CORS())
 
+	sLogger := logger.GetLogger()
+	s.echo.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogStatus:   true,
+		LogURI:      true,
+		LogError:    true,
+		HandleError: true, // forwards error to the global error handler, so it can decide appropriate status code
+		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+			if v.Error == nil {
+				sLogger.LogAttrs(context.Background(), slog.LevelInfo, "REQUEST_SUCCESS",
+					slog.String("uri", v.URI),
+					slog.Int("status", v.Status),
+				)
+			} else {
+				msg, code := httpmsg.Error(v.Error)
+
+				var slogLevel slog.Level
+				var slogMsg string
+
+				if code >= 500 {
+					slogLevel = slog.LevelError
+					slogMsg = "REQUEST_ERROR"
+				} else {
+					slogLevel = slog.LevelInfo
+					slogMsg = "REQUEST_INFO"
+				}
+
+				sLogger.LogAttrs(context.Background(), slogLevel, slogMsg,
+					slog.String("uri", v.URI),
+					slog.Int("status", v.Status),
+					slog.String("err-msg", msg),
+				)
+			}
+			return nil
+		},
+	}))
+
 	for _, handler := range s.handlers {
 		handler.SetRoutes(s.echo)
 	}
@@ -48,7 +87,8 @@ func (s *Server) StartListening() {
 	quit := make(chan os.Signal, 1)
 	<-quit
 
-	log.Println("server shutting down in %s...", s.gracefulShutdown) //replace with slog
+	logger.GetLogger().Warn("server graceful shutdown", slog.Any("server shutting down in", s.gracefulShutdown))
+
 	c, cancel := context.WithTimeout(context.Background(), s.gracefulShutdown)
 	defer cancel()
 
@@ -57,5 +97,7 @@ func (s *Server) StartListening() {
 	}
 
 	<-c.Done()
+	logger.GetLogger().Info("Good Luck!")
+
 	log.Println("Good Luck!")
 }

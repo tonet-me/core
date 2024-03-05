@@ -12,8 +12,7 @@ type Repository interface {
 	//DeActiveCard(ctx context.Context, cardID string) (bool, error)
 	GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
 	GetCardByName(ctx context.Context, name string) (entity.Card, error)
-	//GetCardByName(ctx context.Context, cardName string) (entity.Card, error)
-	//GetAllCardByUserID(ctx context.Context, userID string) ([]entity.Card, error)
+	//GetAllCardByUserID(ctx context.Context, userID string) ([]entity.Card, error) //TODO: do it
 	IsCardExistByName(ctx context.Context, name string) (bool, error)
 }
 

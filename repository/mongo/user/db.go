@@ -3,11 +3,14 @@ package usermongo
 import (
 	"context"
 	"fmt"
+	"github.com/tonet-me/tonet-core/logger"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	mongodb "github.com/tonet-me/tonet-core/repository/mongo"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"log/slog"
 	"slices"
 )
 
@@ -31,12 +34,16 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 
 	collections, lErr := client.GetClient().Database(cfg.DBName).ListCollectionNames(context.Background(), bson.D{{}})
 	if lErr != nil {
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, lErr.Error()))
+
 		panic(fmt.Errorf("op:%v,\nwith err:%v", op, lErr))
 	}
 	if !slices.Contains(collections, cfg.CollName) {
 		err := client.GetClient().Database(cfg.DBName).CreateCollection(context.TODO(), cfg.CollName)
 
 		if err != nil {
+			logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, err.Error()))
+
 			panic(fmt.Errorf("op:%v,\nwith err:%v", op, err))
 		}
 
@@ -48,7 +55,6 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 		Options: options.Index().SetUnique(true),
 	}
 
-	userCollection.Indexes().DropOne(context.TODO(), "phone_number_1")
 	indexModelPhoneNumber := mongo.IndexModel{
 		Keys: bson.D{{"phone_number", 1}},
 	}
@@ -57,6 +63,8 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 	}
 	_, iErr := userCollection.Indexes().CreateMany(context.TODO(), []mongo.IndexModel{indexModelEmail, indexModelPhoneNumber, indexModelEmailAndStatus})
 	if iErr != nil {
+		logger.GetLogger().Error(string(op), slog.String(errmsg.ErrorMsg, iErr.Error()))
+
 		panic(fmt.Errorf("op:%v,\nwith err:%v", op, iErr))
 	}
 

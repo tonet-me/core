@@ -83,8 +83,8 @@ func (s Service) createToken(userID string, subject string, expireDuration time.
 	}
 
 	// TODO - add sign method to config
-	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := accessToken.SignedString([]byte(s.config.SignKey))
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString([]byte(s.config.SignKey))
 	if err != nil {
 		return "", richerror.New(richerror.WithOp(op),
 			richerror.WithKind(richerror.ErrKindUnExpected),
