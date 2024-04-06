@@ -22,3 +22,6 @@ go.work
 
 # Minio data directory
 /data
+
+# Logs file
+/logs
