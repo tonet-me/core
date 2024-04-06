@@ -49,3 +49,10 @@
 {"time":"2024-04-06T11:44:02.915111803+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
 {"time":"2024-04-06T11:44:48.889656612+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
 {"time":"2024-04-06T11:50:38.712383566+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T13:06:42.86269112+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/users/login-or-register","status":403,"err-msg":"code=403, message=code vlidation error: idtoken: token expired: now=1712396202, expires=1712392597"}
+{"time":"2024-04-06T13:06:49.390417646+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T13:06:53.051106179+03:30","level":"INFO","msg":"REQUEST_SUCCESS","uri":"/v1/cards/","status":200}
+{"time":"2024-04-06T13:07:01.679368833+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards","status":405,"err-msg":"code=405, message=Method Not Allowed"}
+{"time":"2024-04-06T13:07:07.810753394+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards","status":405,"err-msg":"code=405, message=Method Not Allowed"}
+{"time":"2024-04-06T13:08:02.24380532+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T13:08:08.59971097+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/users/login-or-register","status":403,"err-msg":"code=403, message=code vlidation error: idtoken: token expired: now=1712396288, expires=1712392597"}
