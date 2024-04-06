@@ -7,7 +7,6 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/tonet-me/tonet-core/logger"
-	httpmsg "github.com/tonet-me/tonet-core/pkg/http_msg"
 	"log"
 	"log/slog"
 	"net/http"
@@ -52,12 +51,11 @@ func (s *Server) StartListening() {
 					slog.Int("status", v.Status),
 				)
 			} else {
-				msg, code := httpmsg.Error(v.Error)
 
 				var slogLevel slog.Level
 				var slogMsg string
 
-				if code >= 500 {
+				if v.Status >= 500 {
 					slogLevel = slog.LevelError
 					slogMsg = "REQUEST_ERROR"
 				} else {
@@ -68,7 +66,7 @@ func (s *Server) StartListening() {
 				sLogger.LogAttrs(context.Background(), slogLevel, slogMsg,
 					slog.String("uri", v.URI),
 					slog.Int("status", v.Status),
-					slog.String("err-msg", msg),
+					slog.String("err-msg", v.Error.Error()),
 				)
 			}
 			return nil

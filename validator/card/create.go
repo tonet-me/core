@@ -2,7 +2,6 @@ package cardvalidator
 
 import (
 	"errors"
-	"fmt"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
@@ -40,7 +39,6 @@ func (v Validator) CreateRequest(req cardparam.CreateNewRequest) (map[string]str
 		validation.Field(&req.CreateData.Status,
 			validation.NotNil, validation.By(v.doesStatusExist)),
 	); err != nil {
-		fmt.Println("err1", err)
 		vErr := validation.Errors{}
 		if errors.As(err, &vErr) {
 			for key, value := range vErr {

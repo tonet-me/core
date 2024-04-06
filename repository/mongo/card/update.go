@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"strings"
 	"time"
 )
 
@@ -36,6 +37,13 @@ func (d DB) UpdateCard(ctx context.Context, cardID string, card entity.Card) (bo
 				richerror.WithMessage(errmsg.ErrorMsgNotFound),
 				richerror.WithInnerError(err))
 
+		}
+
+		if strings.Contains(err.Error(), "E11000 duplicate key error") {
+			return false, richerror.New(richerror.WithOp(op),
+				richerror.WithKind(richerror.ErrKindStatusConflict),
+				richerror.WithMessage(errmsg.ErrorMsgCardNameNotUnique),
+			)
 		}
 
 		return false, richerror.New(richerror.WithOp(op),

@@ -15,14 +15,18 @@ const (
 
 func Error(err error) (message string, code int) {
 	const op = richerror.OP("httpmsg.Error")
+
 	re := new(richerror.RichError)
 	if !errors.As(err, &re) {
 		return err.Error(), http.StatusBadRequest
 	}
+
 	msg := re.Message()
+
 	code = mapKindToHTTPStatusCode(re.Kind())
-	// we should not expose unexpected error messages
 	if code >= internalStatus {
+		//only  error's detail log when we have unexpected error
+		//other error log in http server with custom message
 		logger.GetLogger().Error(string(op), slog.String("internal error", msg))
 		msg = errmsg.ErrorMsgSomethingWentWrong
 	}

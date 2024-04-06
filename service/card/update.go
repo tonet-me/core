@@ -2,7 +2,6 @@ package cardservice
 
 import (
 	"context"
-	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
@@ -11,7 +10,7 @@ import (
 
 func (s Service) Update(ctx context.Context, req cardparam.UpdateRequest) (*cardparam.UpdateResponse, error) {
 	const op = richerror.OP("cardservice.Update")
-	fmt.Println(req)
+
 	card, gErr := s.repo.GetCardByID(ctx, req.CardID)
 	if gErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),

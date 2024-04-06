@@ -1,0 +1,51 @@
+{"time":"2024-04-06T11:12:31.929802306+03:30","level":"INFO","msg":"REQUEST_SUCCESS","uri":"/v1/users/login-or-register","status":200}
+{"time":"2024-04-06T11:13:13.749352393+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T11:13:20.148092271+03:30","level":"INFO","msg":"REQUEST_SUCCESS","uri":"/v1/cards/","status":200}
+{"time":"2024-04-06T11:14:17.368663968+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:14:17.368819192+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:16:28.217872144+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:16:28.217912499+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:19:30.019340544+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:19:30.019412094+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:19:47.539417272+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":404,"err-msg":"code=404, message=record not found"}
+{"time":"2024-04-06T11:19:57.037419096+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:19:57.037476848+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:21:13.486505018+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:21:13.486671907+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:21:53.376240861+03:30","level":"INFO","msg":"REQUEST_SUCCESS","uri":"/v1/cards/","status":200}
+{"time":"2024-04-06T11:21:59.182857863+03:30","level":"INFO","msg":"REQUEST_SUCCESS","uri":"/v1/cards/","status":200}
+{"time":"2024-04-06T11:22:07.704615271+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:22:07.704684406+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:23:25.136270555+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:23:25.136375011+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:23:39.202853247+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:23:39.20297735+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:26:45.715569326+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:26:45.715644556+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:27:56.320773856+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:27:56.320840281+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:28:25.77795363+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:28:25.778049672+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:30:17.706083087+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:30:17.706250086+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:30:55.471195987+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:30:55.471265033+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:32:16.386890906+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:32:16.3871259+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:33:39.738241558+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:33:39.738356205+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:34:06.354796892+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:35:32.909890013+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:35:32.910592563+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:36:42.478842924+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:36:42.478983144+03:30","level":"ERROR","msg":"REQUEST_ERROR","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:37:36.316511651+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:37:36.316570737+03:30","level":"ERROR","msg":"REQUEST_ERROR","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:37:50.535030011+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:37:50.535110782+03:30","level":"ERROR","msg":"REQUEST_ERROR","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:41:04.487682903+03:30","level":"ERROR","msg":"httpmsg.Error","internal error":"write exception: write errors: [E11000 duplicate key error collection: tonet.cards index: name_1 dup key: { name: \"msa4oe4s888s\" }]"}
+{"time":"2024-04-06T11:41:04.48774012+03:30","level":"ERROR","msg":"REQUEST_ERROR","uri":"/v1/cards/","status":500,"err-msg":"code=500, message=something went wrong"}
+{"time":"2024-04-06T11:43:35.802164139+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T11:44:02.915111803+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T11:44:48.889656612+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
+{"time":"2024-04-06T11:50:38.712383566+03:30","level":"INFO","msg":"REQUEST_INFO","uri":"/v1/cards/","status":409,"err-msg":"code=409, message=card name is not unique"}
