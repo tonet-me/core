@@ -40,6 +40,7 @@ type CardStatus int
 const (
 	CardStatusActive CardStatus = iota + 1
 	CardStatusDeActive
+	CardStatusDelete
 )
 
 func (c CardStatus) IsValid() bool {
@@ -49,6 +50,7 @@ func (c CardStatus) IsValid() bool {
 var CardStatusStrings = map[CardStatus]string{
 	CardStatusActive:   "active",
 	CardStatusDeActive: "deActive",
+	CardStatusDelete:   "delete",
 }
 
 func (c CardStatus) String() string {

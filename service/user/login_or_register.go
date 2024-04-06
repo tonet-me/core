@@ -5,6 +5,7 @@ import (
 	"github.com/tonet-me/tonet-core/entity"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"strings"
 )
 
 func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegisterRequest) (*userparam.LoginOrRegisterResponse, error) {
@@ -29,7 +30,7 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 		newUser, cErr := s.repo.CreateNewUser(ctx, entity.User{
 			FirstName:       userInfoFromToken.FirstName,
 			LastName:        userInfoFromToken.LastName,
-			Email:           userInfoFromToken.Email,
+			Email:           strings.ToLower(userInfoFromToken.Email),
 			ProfilePhotoURL: userInfoFromToken.ProfilePhotoURL,
 			Status:          entity.UserStatusActive,
 			EmailVerified:   true,

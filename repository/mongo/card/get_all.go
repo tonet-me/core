@@ -15,7 +15,7 @@ func (d DB) GetAllCardsByUserID(ctx context.Context, userID string) ([]entity.Ca
 
 	var cards []entity.Card
 
-	filter := bson.D{{"user_id", userID}}
+	filter := bson.D{{"user_id", userID}, {"status", bson.D{{"$ne", entity.CardStatusDelete}}}}
 	cur, err := d.collection.Find(ctx, filter)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments

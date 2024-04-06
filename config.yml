@@ -42,3 +42,6 @@ minio:
   use_ssl: false
   user_bucket_name: user-profile
 
+card_config:
+  create_card_limitation: 5
+

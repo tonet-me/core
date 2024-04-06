@@ -47,7 +47,7 @@ func (d DB) GetCardByName(ctx context.Context, name string) (entity.Card, error)
 
 	var card entity.Card
 
-	filter := bson.D{{"name", name}}
+	filter := bson.D{{"name", name}, {"status", bson.D{{"$ne", entity.CardStatusDelete}}}}
 	err := d.collection.FindOne(ctx, filter).Decode(&card)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments

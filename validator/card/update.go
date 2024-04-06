@@ -3,6 +3,7 @@ package cardvalidator
 import (
 	"errors"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
+	"github.com/go-ozzo/ozzo-validation/v4/is"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
@@ -22,6 +23,7 @@ func (v Validator) UpdateRequest(req cardparam.UpdateRequest) (map[string]string
 		validation.Field(&req.UpdateData.Name,
 			validation.Required.Error(errmsg.ErrorMsgNeedName),
 			validation.Length(4, 25),
+			is.LowerCase,
 			validation.Match(regexp.MustCompile("^[a-zA-Z0-9]+(?:[_.][a-zA-Z0-9]+)*$"))),
 
 		validation.Field(&req.UpdateData.PhotoURL,

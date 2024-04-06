@@ -5,14 +5,20 @@ import (
 	"errors"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func (d DB) IsCardExistByName(ctx context.Context, name string) (bool, error) {
 	const op = richerror.OP("cardmongo.IsCardExistByName")
 
-	filter := bson.D{{"name", name}}
-	counted, err := d.collection.CountDocuments(ctx, filter)
+	opts := options.Count().SetHint("_id_")
+	filter := bson.D{{"name", bson.M{"$regex": primitive.Regex{
+		Pattern: name,
+		Options: "i",
+	}}}}
+	counted, err := d.collection.CountDocuments(ctx, filter, opts)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments
 			return false, nil

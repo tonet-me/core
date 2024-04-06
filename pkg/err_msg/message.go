@@ -9,6 +9,7 @@ const (
 	ErrorMsgPhoneNumberIsNotUnique = "phone number is not unique"
 	ErrorMsgEmailIsNotUnique       = "email is not unique"
 	ErrorMsgCardNameNotUnique      = "card name is not unique"
+	ErrorMsgCreatCardLimitation    = "You can not add more than %d cards"
 	ErrorMsgPhoneNumberIsNotValid  = "phone number is not valid"
 	ErrorMsgUserNotAllowed         = "user not allowed"
 	ErrorMsgUserNotFound           = "user not found"

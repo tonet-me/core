@@ -52,7 +52,7 @@ func createUserHandler(cfg config.Config, client *mongodb.DB, authGenerator auth
 
 func createCardHandler(cfg config.Config, client *mongodb.DB, authGenerator auth.Service) httpserver.Handler {
 	cardDB := cardmongo.New(cfg.CardMongo, client)
-	cardSvc := cardservice.New(cardDB)
+	cardSvc := cardservice.New(cfg.CardConfig, cardDB)
 	cardVld := cardvalidator.New()
 	return cardhandler.New(cardSvc, cardVld, authGenerator, cfg.Auth)
 }
@@ -65,7 +65,7 @@ func createMinioHandler(cfg config.Config, authGenerator auth.Service) httpserve
 
 func creatVisitHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {
 	cardDB := cardmongo.New(cfg.CardMongo, client)
-	cardSvc := cardservice.New(cardDB)
+	cardSvc := cardservice.New(cfg.CardConfig, cardDB)
 
 	visitDB := visitmongo.New(cfg.VisitConfig, client)
 	visitSvc := visitservice.New(visitDB, cardSvc)
