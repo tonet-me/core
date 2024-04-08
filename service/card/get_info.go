@@ -26,6 +26,7 @@ func (s Service) GetInfoByID(ctx context.Context, req cardparam.GetInfoByIDReque
 	return &cardparam.GetInfoByIDResponse{Card: card}, nil
 }
 
+// IMPORTANT: Just use inner request (This method don't check authenticated user)
 func (s Service) GetInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
 	const op = richerror.OP("cardservice.GetInfoByName")
 

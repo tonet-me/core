@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -29,7 +30,10 @@ func (d DB) ActiveUser(ctx context.Context, userID string) (bool, error) {
 	err := d.collection.FindOneAndUpdate(ctx, filter, update).Err()
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments
-			return false, nil
+			return false, richerror.New(richerror.WithOp(op),
+				richerror.WithKind(richerror.ErrKindNotFound),
+				richerror.WithMessage(errmsg.ErrorMsgNotFound),
+				richerror.WithInnerError(err))
 		}
 
 		return false, richerror.New(richerror.WithOp(op),

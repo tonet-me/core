@@ -7,7 +7,7 @@ import (
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 )
 
-func (s Service) GetCardInfoByName(ctx context.Context, req visitparam.GetCardInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
+func (s Service) getCardInfoByName(ctx context.Context, req visitparam.GetCardInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
 	const op = richerror.OP("visitservice.GetCardInfoByName")
 
 	res, gErr := s.cardSvc.GetInfoByName(ctx, cardparam.GetInfoByNameRequest{Name: req.Name})

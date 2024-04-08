@@ -22,7 +22,7 @@ func (h Handler) updateCard(ctx echo.Context) error {
 	if fieldErrors, err := h.cardVld.UpdateRequest(req); err != nil {
 		msg, code := httpmsg.Error(err)
 
-		return ctx.JSON(code, echo.Map{
+		return echo.NewHTTPError(code, echo.Map{
 			"message": msg,
 			"errors":  fieldErrors,
 		})

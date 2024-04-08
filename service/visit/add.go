@@ -13,7 +13,7 @@ import (
 func (s Service) AddNewVisitToCard(ctx context.Context, req visitparam.AddNewCardVisitRequest) (*visitparam.GetCardInfoByNameResponse, error) {
 	const op = richerror.OP("visitservice.AddNewVisitToCard")
 
-	getCard, gErr := s.GetCardInfoByName(ctx, visitparam.GetCardInfoByNameRequest{Name: req.CardName})
+	getCard, gErr := s.getCardInfoByName(ctx, visitparam.GetCardInfoByNameRequest{Name: req.CardName})
 	if gErr != nil {
 		return nil, richerror.New(
 			richerror.WithOp(op),
