@@ -3,17 +3,32 @@ package cardservice
 import (
 	"context"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
-	userparam "github.com/tonet-me/tonet-core/param/user"
+	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 )
 
-func (s Service) Active(ctx context.Context, req cardparam.ActiveRequest) (*userparam.ActiveResponse, error) {
+func (s Service) Active(ctx context.Context, req cardparam.ActiveRequest) (*cardparam.ActiveResponse, error) {
 	const op = richerror.OP("cardservice.Active")
 
-	success, dErr := s.repo.ActiveCard(ctx, req.AuthenticatedUserID)
+	//TODO: check if not deleted
+	card, gErr := s.repo.GetCardByID(ctx, req.CardID)
+	if gErr != nil {
+		return nil, richerror.New(richerror.WithOp(op),
+			richerror.WithInnerError(gErr))
+	}
+
+	if card.UserID != req.AuthenticatedUserID {
+		return nil, richerror.New(richerror.WithOp(op),
+			richerror.WithKind(richerror.ErrKindForbidden),
+			richerror.WithMessage(errmsg.ErrorMsgUserNotAllowed),
+		)
+	}
+
+	success, dErr := s.repo.ActiveCard(ctx, req.CardID)
 	if dErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(dErr))
 	}
-	return &userparam.ActiveResponse{Success: success}, nil
+
+	return &cardparam.ActiveResponse{Success: success}, nil
 }
