@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// just check card exist by name, we dont need to check deleted or not deleted
 func (d DB) IsCardExistByName(ctx context.Context, name string) (bool, error) {
 	const op = richerror.OP("cardmongo.IsCardExistByName")
 

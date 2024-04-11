@@ -12,8 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func (d DB) DeActiveCard(ctx context.Context, cardID string) (bool, error) {
-	const op = richerror.OP("cardmongo.DeActiveUser")
+func (d DB) DeleteCard(ctx context.Context, cardID string) (bool, error) {
+	const op = richerror.OP("cardmongo.DeleteCard")
 
 	id, oErr := primitive.ObjectIDFromHex(cardID)
 	if oErr != nil {
@@ -23,8 +23,9 @@ func (d DB) DeActiveCard(ctx context.Context, cardID string) (bool, error) {
 			richerror.WithInnerError(oErr))
 	}
 
-	filter := bson.D{{"_id", id}, {"status", entity.CardStatusActive}}
-	update := bson.D{{"$set", bson.D{{"status", entity.CardStatusDeActive}}}}
+	filter := bson.D{{"_id", id}}
+
+	update := bson.D{{"$set", bson.D{{"status", entity.CardStatusDelete}}}}
 
 	err := d.collection.FindOneAndUpdate(ctx, filter, update).Err()
 	if err != nil {

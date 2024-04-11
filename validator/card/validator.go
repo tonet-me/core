@@ -1,16 +1,24 @@
 package cardvalidator
 
 import (
+	"context"
 	"fmt"
 	"github.com/tonet-me/tonet-core/entity"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 )
 
-type Validator struct {
+type Repository interface {
+	GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
 }
 
-func New() Validator {
-	return Validator{}
+type Validator struct {
+	repo Repository
+}
+
+func New(repo Repository) Validator {
+	return Validator{
+		repo: repo,
+	}
 }
 
 func (v Validator) doesStatusExist(value interface{}) error {

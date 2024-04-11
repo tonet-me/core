@@ -13,6 +13,7 @@ type Repository interface {
 	UpdateCard(ctx context.Context, cardID string, card entity.Card) (bool, error)
 	ActiveCard(ctx context.Context, cardID string) (bool, error)
 	DeActiveCard(ctx context.Context, cardID string) (bool, error)
+	DeleteCard(ctx context.Context, cardID string) (bool, error)
 	GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
 	GetCardByName(ctx context.Context, name string) (entity.Card, error)
 	GetAllCardsByUserID(ctx context.Context, userID string) ([]entity.Card, error)

@@ -58,6 +58,9 @@ func (s *Server) StartListening() {
 				if v.Status >= 500 {
 					slogLevel = slog.LevelError
 					slogMsg = "REQUEST_ERROR"
+				} else if v.Status >= 200 && v.Status <= 299 {
+					slogLevel = slog.LevelInfo
+					slogMsg = "REQUEST_SUCCESS"
 				} else {
 					slogLevel = slog.LevelInfo
 					slogMsg = "REQUEST_INFO"

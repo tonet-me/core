@@ -18,16 +18,14 @@ func (s Service) Delete(ctx context.Context, req cardparam.DeleteRequest) (*card
 			richerror.WithInnerError(gErr))
 	}
 
-	if card.UserID != req.AuthenticatedUserID {
+	if card.UserID != req.AuthenticatedUserID || card.Status == entity.CardStatusDelete {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithKind(richerror.ErrKindForbidden),
 			richerror.WithMessage(errmsg.ErrorMsgUserNotAllowed),
 		)
 	}
 
-	card.Status = entity.CardStatusDelete
-
-	success, dErr := s.repo.UpdateCard(ctx, card.ID, card)
+	success, dErr := s.repo.DeleteCard(ctx, req.CardID)
 	if dErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(dErr))

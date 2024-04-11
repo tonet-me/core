@@ -53,7 +53,7 @@ func createUserHandler(cfg config.Config, client *mongodb.DB, authGenerator auth
 func createCardHandler(cfg config.Config, client *mongodb.DB, authGenerator auth.Service) httpserver.Handler {
 	cardDB := cardmongo.New(cfg.CardMongo, client)
 	cardSvc := cardservice.New(cfg.CardConfig, cardDB)
-	cardVld := cardvalidator.New()
+	cardVld := cardvalidator.New(cardDB)
 	return cardhandler.New(cardSvc, cardVld, authGenerator, cfg.Auth)
 }
 

@@ -24,7 +24,7 @@ func (d DB) GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
 			richerror.WithInnerError(oErr))
 	}
 
-	filter := bson.D{{"_id", id}}
+	filter := bson.D{{"_id", id}, {"status", bson.D{{"$ne", entity.CardStatusDelete}}}}
 	err := d.collection.FindOne(ctx, filter).Decode(&card)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments

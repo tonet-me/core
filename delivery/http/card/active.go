@@ -17,6 +17,17 @@ func (h Handler) activeCardByID(ctx echo.Context) error {
 	claims := claim.GetClaimsFromEchoContext(ctx)
 	req.AuthenticatedUserID = claims.UserID
 
+	if fieldErrors, err := h.cardVld.CheckIfCardDeleted(cardparam.DeleteRequest{
+		CardID: req.CardID,
+	}); err != nil {
+		msg, code := httpmsg.Error(err)
+
+		return echo.NewHTTPError(code, echo.Map{
+			"message": msg,
+			"errors":  fieldErrors,
+		})
+	}
+
 	res, gErr := h.cardSvc.Active(ctx.Request().Context(), req)
 	if gErr != nil {
 		msg, code := httpmsg.Error(gErr)

@@ -11,7 +11,7 @@ func (h Handler) SetRoutes(e *echo.Echo) {
 	r.POST("", h.createNewCard, middleware.Authentication(h.authSvc, h.authConfig))
 	r.PUT("", h.updateCard, middleware.Authentication(h.authSvc, h.authConfig))
 	r.PUT("/active/:id", h.activeCardByID, middleware.Authentication(h.authSvc, h.authConfig))
-	r.PUT("/de-active/:id", h.activeCardByID, middleware.Authentication(h.authSvc, h.authConfig))
+	r.PUT("/de-active/:id", h.deActiveCardByID, middleware.Authentication(h.authSvc, h.authConfig))
 
 	r.GET("", h.getAllUserCards, middleware.Authentication(h.authSvc, h.authConfig))
 	r.GET("/:id", h.getCardInfoByID, middleware.Authentication(h.authSvc, h.authConfig))

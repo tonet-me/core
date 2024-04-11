@@ -2,6 +2,7 @@ package cardservice
 
 import (
 	"context"
+	"github.com/tonet-me/tonet-core/entity"
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
@@ -16,13 +17,12 @@ func (s Service) DeActive(ctx context.Context, req cardparam.DeActiveRequest) (*
 			richerror.WithInnerError(gErr))
 	}
 
-	if card.UserID != req.AuthenticatedUserID {
+	if card.UserID != req.AuthenticatedUserID || card.Status == entity.CardStatusDeActive {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithKind(richerror.ErrKindForbidden),
 			richerror.WithMessage(errmsg.ErrorMsgUserNotAllowed),
 		)
 	}
-
 	success, dErr := s.repo.DeActiveCard(ctx, req.CardID)
 	if dErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
