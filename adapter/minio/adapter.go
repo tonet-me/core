@@ -10,15 +10,17 @@ import (
 )
 
 type Config struct {
-	Endpoint        string `koanf:"endpoint"`
-	AccessKeyID     string `koanf:"access_key_id"`
-	SecretAccessKey string `koanf:"secret_access_key"`
-	UseSSL          bool   `koanf:"use_ssl"`
-	UserBucketName  string `koanf:"user_bucket_name"`
+	Endpoint              string `koanf:"endpoint"`
+	AccessKeyID           string `koanf:"access_key_id"`
+	SecretAccessKey       string `koanf:"secret_access_key"`
+	UseSSL                bool   `koanf:"use_ssl"`
+	UseProfilerBucketName string `koanf:"user_profile_bucket_name"`
+	CardProfileBucketName string `koanf:"card_profile_bucket_name"`
 }
 type Adapter struct {
-	client         *minio.Client
-	userBucketName string
+	client                *minio.Client
+	userProfileBucketName string
+	cardProfileBucketName string
 }
 
 func New(cfg Config) *Adapter {
@@ -34,12 +36,13 @@ func New(cfg Config) *Adapter {
 	}
 
 	newAdapter := Adapter{
-		client:         minioClient,
-		userBucketName: cfg.UserBucketName,
+		client:                minioClient,
+		userProfileBucketName: cfg.UseProfilerBucketName,
+		cardProfileBucketName: cfg.CardProfileBucketName,
 	}
 
 	//create buckets
-	newAdapter.createBuckets(cfg.UserBucketName)
+	newAdapter.createBuckets(newAdapter.userProfileBucketName, newAdapter.cardProfileBucketName)
 
 	return &newAdapter
 }

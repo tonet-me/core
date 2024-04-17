@@ -7,7 +7,7 @@ import (
 )
 
 func (h Handler) uploadUserProfile(ctx echo.Context) error {
-	fileFromClient, fErr := ctx.FormFile("profile-photo")
+	fileFromClient, fErr := ctx.FormFile("user-profile-photo")
 	if fErr != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "invalid file parameter")
 	}

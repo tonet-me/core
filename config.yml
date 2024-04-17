@@ -40,7 +40,8 @@ minio:
   access_key_id: minio-root-user
   secret_access_key: minio-root-password
   use_ssl: false
-  user_bucket_name: user-profile
+  user_profile_bucket_name: user-profile
+  card_profile_bucket_name: card-profile
 
 card_config:
   create_card_limitation: 5

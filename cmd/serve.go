@@ -19,6 +19,7 @@ import (
 	userservice "github.com/tonet-me/tonet-core/service/user"
 	visitservice "github.com/tonet-me/tonet-core/service/visit"
 	cardvalidator "github.com/tonet-me/tonet-core/validator/card"
+	filevalidator "github.com/tonet-me/tonet-core/validator/file"
 	uservalidator "github.com/tonet-me/tonet-core/validator/user"
 )
 
@@ -59,8 +60,9 @@ func createCardHandler(cfg config.Config, client *mongodb.DB, authGenerator auth
 
 func createMinioHandler(cfg config.Config, authGenerator auth.Service) httpserver.Handler {
 	minioClient := minio.New(cfg.Minio)
+	fileVld := filevalidator.New()
 
-	return miniohandler.New(minioClient, authGenerator, cfg.Auth)
+	return miniohandler.New(minioClient, fileVld, authGenerator, cfg.Auth)
 }
 
 func creatVisitHandler(cfg config.Config, client *mongodb.DB) httpserver.Handler {

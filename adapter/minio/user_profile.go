@@ -15,7 +15,7 @@ func (a Adapter) UploadUserProfilePhoto(ctx context.Context, userID string, file
 
 	fileName := strings.Join([]string{userID, strconv.FormatInt(time.Now().Unix(), 10)}, `_`)
 
-	key, uErr := a.upload(ctx, a.userBucketName, fileName, file, fileSize)
+	key, uErr := a.upload(ctx, a.userProfileBucketName, fileName, file, fileSize)
 	if uErr != nil {
 		return "", richerror.New(
 			richerror.WithOp(op),
@@ -29,7 +29,7 @@ func (a Adapter) UploadUserProfilePhoto(ctx context.Context, userID string, file
 func (a Adapter) DownloadUserProfilePhoto(ctx context.Context, fileName string) (*minio.Object, error) {
 	const op = richerror.OP("minio.DownloadUserProfilePhoto")
 
-	object, dErr := a.download(ctx, a.userBucketName, fileName)
+	object, dErr := a.download(ctx, a.userProfileBucketName, fileName)
 	if dErr != nil {
 		return nil, richerror.New(
 			richerror.WithOp(op),

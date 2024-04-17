@@ -26,4 +26,5 @@ const (
 	ErrorMsgCardSocialMediaTypeInvalid = "the social media type invalid"
 	ErrorMsgNeedName                   = "name not found"
 	ErrorMsgNeedTitle                  = "title not found"
+	ErrorMsgNeedCardID                 = "card id not found"
 )
