@@ -42,12 +42,16 @@ func (d DB) GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
 	return card, nil
 }
 
-func (d DB) GetCardByName(ctx context.Context, name string) (entity.Card, error) {
-	const op = richerror.OP("cardmongo.GetCardByName")
+// Warning: Just use with visit service
+func (d DB) GetOnlyActiveCardByName(ctx context.Context, name string) (entity.Card, error) {
+	const op = richerror.OP("cardmongo.GetOnlyActiveCardByName")
 
 	var card entity.Card
 
-	filter := bson.D{{"name", name}, {"status", bson.D{{"$ne", entity.CardStatusDelete}}}}
+	//Just active card can show
+	ninArrayToFindOnlyActiveCard := []entity.CardStatus{entity.CardStatusDelete, entity.CardStatusDeActive}
+
+	filter := bson.D{{"name", name}, {"status", bson.M{"$nin": ninArrayToFindOnlyActiveCard}}}
 	err := d.collection.FindOne(ctx, filter).Decode(&card)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) { //instead of if err == mongo.ErrNoDocuments

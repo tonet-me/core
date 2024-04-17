@@ -15,7 +15,7 @@ type Repository interface {
 	DeActiveCard(ctx context.Context, cardID string) (bool, error)
 	DeleteCard(ctx context.Context, cardID string) (bool, error)
 	GetCardByID(ctx context.Context, cardID string) (entity.Card, error)
-	GetCardByName(ctx context.Context, name string) (entity.Card, error)
+	GetOnlyActiveCardByName(ctx context.Context, name string) (entity.Card, error)
 	GetAllCardsByUserID(ctx context.Context, userID string) ([]entity.Card, error)
 	IsCardExistByName(ctx context.Context, name string) (bool, error)
 	CheckIsCreateCardLimitation(ctx context.Context, userID string, limit uint) (bool, error)

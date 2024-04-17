@@ -11,7 +11,7 @@ type Repository interface {
 }
 
 type CardService interface {
-	GetInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error)
+	GetOnlyActiveCardInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error)
 }
 type Service struct {
 	repo    Repository

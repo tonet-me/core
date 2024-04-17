@@ -27,10 +27,10 @@ func (s Service) GetInfoByID(ctx context.Context, req cardparam.GetInfoByIDReque
 }
 
 // IMPORTANT: Just use inner request (This method don't check authenticated user)
-func (s Service) GetInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
-	const op = richerror.OP("cardservice.GetInfoByName")
+func (s Service) GetOnlyActiveCardInfoByName(ctx context.Context, req cardparam.GetInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
+	const op = richerror.OP("cardservice.GetOnlyActiveCardInfoByName")
 
-	card, gErr := s.repo.GetCardByName(ctx, req.Name)
+	card, gErr := s.repo.GetOnlyActiveCardByName(ctx, req.Name)
 	if gErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(gErr))

@@ -10,7 +10,7 @@ import (
 func (s Service) getCardInfoByName(ctx context.Context, req visitparam.GetCardInfoByNameRequest) (*cardparam.GetInfoByNameResponse, error) {
 	const op = richerror.OP("visitservice.GetCardInfoByName")
 
-	res, gErr := s.cardSvc.GetInfoByName(ctx, cardparam.GetInfoByNameRequest{Name: req.Name})
+	res, gErr := s.cardSvc.GetOnlyActiveCardInfoByName(ctx, cardparam.GetInfoByNameRequest{Name: req.Name})
 	if gErr != nil {
 		return nil, richerror.New(richerror.WithOp(op),
 			richerror.WithInnerError(gErr))
