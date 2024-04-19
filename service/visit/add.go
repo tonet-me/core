@@ -8,6 +8,7 @@ import (
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"log/slog"
+	"time"
 )
 
 func (s Service) AddNewVisitToCard(ctx context.Context, req visitparam.AddNewCardVisitRequest) (*visitparam.GetCardInfoByNameResponse, error) {
@@ -21,7 +22,9 @@ func (s Service) AddNewVisitToCard(ctx context.Context, req visitparam.AddNewCar
 	}
 
 	newVisit := entity.Visit{
-		CardID: getCard.Card.ID,
+		CardID:    getCard.Card.ID,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 		//UserAgent: ctx.Request().UserAgent(), //TODO: get user agent info
 	}
 	//TODO: check to use go routine and then -> need handle error with go?

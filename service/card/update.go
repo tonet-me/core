@@ -6,6 +6,7 @@ import (
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"time"
 )
 
 func (s Service) Update(ctx context.Context, req cardparam.UpdateRequest) (*cardparam.UpdateResponse, error) {
@@ -39,6 +40,7 @@ func (s Service) Update(ctx context.Context, req cardparam.UpdateRequest) (*card
 		SocialMedias: optionalCardField.SocialMedias,
 		Links:        optionalCardField.Links,
 		Status:       req.UpdateData.Status,
+		UpdatedAt:    time.Now(),
 	}
 
 	updated, uErr := s.repo.UpdateCard(ctx, card.ID, cardDataUpdate)

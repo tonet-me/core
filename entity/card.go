@@ -16,8 +16,8 @@ type Card struct {
 	SocialMedias []SocialMedia `bson:"social_medias" json:"social_medias"`
 	Links        []Link        `bson:"links" json:"links"`
 	Status       CardStatus    `bson:"status" json:"status"`
-	CreatedAt    time.Time     `bson:"created_at" json:"created_at"`
-	UpdatedAt    time.Time     `bson:"updated_at" json:"updated_at"`
+	CreatedAt    time.Time     `bson:"created_at,omitempty" json:"created_at"`
+	UpdatedAt    time.Time     `bson:"updated_at,omitempty" json:"updated_at"`
 }
 
 type PhoneNumber struct {

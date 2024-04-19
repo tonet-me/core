@@ -9,8 +9,8 @@ func (h Handler) SetRoutes(e *echo.Echo) {
 	r := e.Group("/v1/files")
 
 	r.POST("/users/profile", h.uploadUserProfile, middleware.Authentication(h.authSvc, h.authConfig))
-	r.GET("/users/profile/:id", h.downloadUserProfile)
+	r.GET("/users/profile/:id", h.downloadUserProfile, middleware.Authentication(h.authSvc, h.authConfig))
 
-	r.POST("/cards/profile", h.uploadCardProfile)
+	r.POST("/cards/profile", h.uploadCardProfile, middleware.Authentication(h.authSvc, h.authConfig))
 	r.GET("/cards/profile/:id", h.downloadCardProfile)
 }

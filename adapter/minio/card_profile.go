@@ -10,10 +10,10 @@ import (
 	"time"
 )
 
-func (a Adapter) UploadCardProfile(ctx context.Context, cardID string, file *multipart.File, fileSize int64) (string, error) {
+func (a Adapter) UploadCardProfile(ctx context.Context, userID string, file *multipart.File, fileSize int64) (string, error) {
 	const op = richerror.OP("minio.UploadCardProfile")
 
-	fileName := strings.Join([]string{cardID, strconv.FormatInt(time.Now().Unix(), 10)}, `_`)
+	fileName := strings.Join([]string{userID, strconv.FormatInt(time.Now().Unix(), 10)}, `_`)
 
 	key, uErr := a.upload(ctx, a.cardProfileBucketName, fileName, file, fileSize)
 	if uErr != nil {

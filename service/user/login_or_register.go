@@ -6,6 +6,7 @@ import (
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
 	"strings"
+	"time"
 )
 
 func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegisterRequest) (*userparam.LoginOrRegisterResponse, error) {
@@ -34,6 +35,8 @@ func (s Service) LoginOrRegister(ctx context.Context, req userparam.LoginOrRegis
 			ProfilePhotoURL: userInfoFromToken.ProfilePhotoURL,
 			Status:          entity.UserStatusActive,
 			EmailVerified:   true,
+			CreatedAt:       time.Now(),
+			UpdatedAt:       time.Now(),
 		})
 		if cErr != nil {
 			return nil, richerror.New(richerror.WithOp(op),

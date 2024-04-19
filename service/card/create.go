@@ -7,6 +7,7 @@ import (
 	cardparam "github.com/tonet-me/tonet-core/param/card"
 	errmsg "github.com/tonet-me/tonet-core/pkg/err_msg"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"time"
 )
 
 func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) (*cardparam.CreateNewResponse, error) {
@@ -57,6 +58,8 @@ func (s Service) CreateNew(ctx context.Context, req cardparam.CreateNewRequest) 
 		SocialMedias: optionalCardField.SocialMedias,
 		Links:        optionalCardField.Links,
 		Status:       req.CreateData.Status,
+		CreatedAt:    time.Now(),
+		UpdatedAt:    time.Now(),
 	}
 
 	createdCard, cErr := s.repo.CreateNewCard(ctx, newCard)

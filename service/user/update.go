@@ -5,6 +5,7 @@ import (
 	"github.com/tonet-me/tonet-core/entity"
 	userparam "github.com/tonet-me/tonet-core/param/user"
 	richerror "github.com/tonet-me/tonet-core/pkg/rich_error"
+	"time"
 )
 
 func (s Service) Update(ctx context.Context, req userparam.UpdateRequest) (*userparam.UpdateResponse, error) {
@@ -23,6 +24,7 @@ func (s Service) Update(ctx context.Context, req userparam.UpdateRequest) (*user
 		Email:       user.Email,
 		PhoneNumber: req.UpdateData.PhoneNumber,
 		Status:      user.Status,
+		UpdatedAt:   time.Now(),
 	}
 
 	if req.UpdateData.ProfilePhotoURL != nil {
