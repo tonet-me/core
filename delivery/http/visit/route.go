@@ -5,5 +5,7 @@ import (
 )
 
 func (h Handler) SetRoutes(e *echo.Echo) {
-	e.GET("/:name", h.visit)
+	r := e.Group("/v1/visits")
+
+	r.GET("/:card-name", h.visit)
 }

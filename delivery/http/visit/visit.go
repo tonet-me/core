@@ -9,7 +9,7 @@ import (
 )
 
 func (h Handler) visit(ctx echo.Context) error {
-	cardNameFromClient := ctx.Param("name")
+	cardNameFromClient := ctx.Param("card-name")
 	cardName := strings.Split(cardNameFromClient, `/`)[0]
 
 	//userAgent:=ctx.Request().UserAgent() // todo: update to map[string]string from other pkg

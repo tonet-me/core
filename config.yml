@@ -29,14 +29,14 @@ visit_mongo:
 
 auth:
   sign_key: mytonetsecretkey
-  access_expiration_time: 72h
-  refresh_expiration_time: 124h
+  access_expiration_time: 2880h
+  refresh_expiration_time: 3880h
   access_subject: acctoken
   refresh_subject: rftoken
 
 minio:
   endpoint: localhost:9000
-#  endpoint: minio-tonet:9000
+#  72dendpoint: minio-tonet:9000
   access_key_id: minio-root-user
   secret_access_key: minio-root-password
   use_ssl: false
