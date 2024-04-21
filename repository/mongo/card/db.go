@@ -53,8 +53,11 @@ func initialCollection(cfg Config, client *mongodb.DB) *mongo.Collection {
 		Keys: bson.D{{"user_id", 1}},
 	}
 	indexModelName := mongo.IndexModel{
-		Keys:    bson.D{{"name", 1}},
-		Options: options.Index().SetUnique(true),
+		Keys: bson.D{{"name", 1}},
+		Options: options.Index().SetUnique(true).SetCollation(&options.Collation{
+			Locale:   "en",
+			Strength: 2,
+		}),
 	}
 	indexModelNameAndStatus := mongo.IndexModel{
 		Keys: bson.D{{"name", 1}, {"status", 1}},
