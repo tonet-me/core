@@ -5,7 +5,7 @@ http_server:
 
 o_auth:
   google:
-    client_id:
+    client_id: 603743334325-1qu4vfqjc10kthgp9ssehtcemo7nu963.apps.googleusercontent.com
     client_secret:
 
 mongo_client:
