@@ -36,8 +36,8 @@ services:
     image: 'quay.io/minio/minio:RELEASE.2024-02-17T01-15-57Z'
     container_name: minio-tonet
     ports:
-      - '9002:9002'
-      - '9001:9001'
+      - '9005:9005'
+      - '9004:9004'
     environment:
       - MINIO_ROOT_USER=minio-root-user
       - MINIO_ROOT_PASSWORD=minio-root-password
