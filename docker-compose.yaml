@@ -1,20 +1,20 @@
 # Use root/example as user/password credentials
 version: '3.7'
 services:
-  tonet-core:
-    build:
-      context: .
-      target: development
-    image: tonet-core
-    container_name: tonet-core
-    networks:
-      - core
-    restart: always
-    ports:
-      - "1313:1313"
-    depends_on:
-      - "mongodb"
-      - "minio"
+#  tonet-core:
+#    build:
+#      context: .
+#      target: development
+#    image: tonet-core
+#    container_name: tonet-core
+#    networks:
+#      - core
+#    restart: always
+#    ports:
+#      - "1313:1313"
+#    depends_on:
+#      - "mongodb"
+#      - "minio"
 
 
   mongodb:
@@ -36,8 +36,8 @@ services:
     image: 'quay.io/minio/minio:RELEASE.2024-02-17T01-15-57Z'
     container_name: minio-tonet
     ports:
-      - '9005:9005'
-      - '9004:9004'
+      - 9005:9000
+      - 9004:9001
     environment:
       - MINIO_ROOT_USER=minio-root-user
       - MINIO_ROOT_PASSWORD=minio-root-password

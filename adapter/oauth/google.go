@@ -28,6 +28,7 @@ type Google struct {
 }
 
 func NewGoogle(cfg GoogleConfig) Google {
+	fmt.Println("google", cfg.ClientID)
 	return Google{
 		oauthConfig: &oauth2.Config{
 			ClientID:     cfg.ClientID,
