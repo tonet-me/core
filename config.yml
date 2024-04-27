@@ -10,8 +10,8 @@ o_auth:
 
 mongo_client:
   port: 27017
-  host: localhost
-#  host: mongodb-tonet
+#  host: localhost
+  host: mongodb-tonet
   username: root
   password: rootpassword
 
@@ -35,8 +35,8 @@ auth:
   refresh_subject: rftoken
 
 minio:
-  endpoint: localhost:9005
-#  endpoint: minio-tonet:9005
+#  endpoint: localhost:9005
+  endpoint: minio-tonet:9005
   access_key_id: minio-root-user
   secret_access_key: minio-root-password
   use_ssl: false
