@@ -1,20 +1,20 @@
 # Use root/example as user/password credentials
 version: '3.7'
 services:
-#  tonet-core:
-#    build:
-#      context: .
-#      target: development
-#    image: tonet-core
-#    container_name: tonet-core
-#    networks:
-#      - core
-#    restart: always
-#    ports:
-#      - "1313:1313"
-#    depends_on:
-#      - "mongodb"
-#      - "minio"
+  tonet-core:
+    build:
+      context: .
+      target: development
+    image: tonet-core
+    container_name: tonet-core
+    networks:
+      - core
+    restart: always
+    ports:
+      - "1313:1313"
+    depends_on:
+      - "mongodb"
+      - "minio"
 
 
   mongodb:
