@@ -5,7 +5,7 @@ http_server:
 
 o_auth:
   google:
-    client_id: 603743334325-1qu4vfqjc10kthgp9ssehtcemo7nu963.apps.googleusercontent.com
+    client_id:
     client_secret:
 
 mongo_client:
@@ -35,7 +35,7 @@ auth:
   refresh_subject: rftoken
 
 minio:
-#  endpoint: localhost:9005
+#  endpoint: localhost:9002
   endpoint: minio-tonet:9002
   access_key_id: minio-root-user
   secret_access_key: minio-root-password

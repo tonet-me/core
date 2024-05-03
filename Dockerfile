@@ -1,6 +1,6 @@
 # Build Stage
 # First pull Golang image
-FROM golang:1.21.6-alpine as builder
+FROM docker.arvancloud.ir/golang:1.21.6-alpine as builder
  
 # Set environment variable
 ENV APP_NAME tonet
@@ -21,7 +21,7 @@ RUN CGO_ENABLED=0 go build -mod=vendor -v -o $APP_NAME .
 
 # Run Stage
 
-FROM alpine:3.18 as development
+FROM docker.arvancloud.ir/alpine:3.18 as development
 
  
 # Set environment variable
