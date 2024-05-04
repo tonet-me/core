@@ -7,8 +7,8 @@ services:
       target: development
     image: tonet-core
     container_name: tonet-core
-    networks:
-      - core
+#    networks:
+#      - core
     restart: always
     ports:
       - "1313:1313"
@@ -26,8 +26,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     ports:
       - 27017:27017
-    networks:
-      - core
+#    networks:
+#      - core
     volumes:
       - mongodb_data_tonet:/data/db
 
@@ -49,8 +49,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    networks:
-      - core
+#    networks:
+#      - core
     command: server --address ":9002" --console-address ":9001" http://minio/data{1...2}
 
 volumes:
@@ -58,6 +58,6 @@ volumes:
   data1-1:
   data1-2:
 
-networks:
-  core:
-    driver: "bridge"
+#networks:
+#  core:
+#    driver: "bridge"
